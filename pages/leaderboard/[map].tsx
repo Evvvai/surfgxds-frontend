@@ -28,8 +28,8 @@ const Leaderboard = (props: Props) => {
 
   // Sync
   useEffect(() => {
-    router.query.limit = pagination.limit
-    router.query.offset = pagination.offset
+    router.query.limit = pagination.limit.toString()
+    router.query.offset = pagination.offset.toString()
     router.push(router)
   }, [pagination])
 
