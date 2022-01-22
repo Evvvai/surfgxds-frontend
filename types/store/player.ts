@@ -15,6 +15,11 @@ export interface Player {
   role: Role
 }
 
+export interface PlayerAuth {
+  token: string
+  player: Player
+}
+
 export enum Role {
   PLAYER = 'player',
   PREMIUM = 'premium',

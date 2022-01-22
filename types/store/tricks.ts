@@ -1,4 +1,6 @@
+import { Player } from './player'
 export interface TrickState {
+  isLoad: boolean
   tricks: Trick[]
 }
 
@@ -10,10 +12,10 @@ export interface Trick {
   velocity: number
   dateAdd: Date
   len: number | null
-  author: string | null
   authorSteamid: string | null
   completes: string | null
   myCompletes: string | null
+  author: Player
 
   /////////////////////////////////////////////////////////////////////////////////
   // Relations

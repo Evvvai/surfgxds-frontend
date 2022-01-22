@@ -12,7 +12,6 @@ import { usePlayer } from '../../../hooks/store/player/usePlayer'
 // Utils
 import { useRouter } from 'next/dist/client/router'
 import cn from 'classnames'
-import dayjs from 'dayjs'
 import { Trick } from '@store'
 
 interface Props {
@@ -40,7 +39,7 @@ export default function TricksItem(props: Props): JSX.Element {
     >
       <div className={styles.contentInner}>
         <div className={cn(styles.item, styles.itemInd)}>
-          <div>{props.trick.id}</div>
+          <div>{props.trick.index}</div>
         </div>
 
         <div

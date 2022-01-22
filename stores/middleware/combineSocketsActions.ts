@@ -2,7 +2,7 @@ import { AnyAction } from '@reduxjs/toolkit'
 import { Dispatch } from 'react'
 
 // Sockets Actions
-import { userSocket } from './user/user-socket'
+import { playerSocket } from './player/player-socket'
 import { notificationSocket } from './notification/notification-socket'
 import { friendSocket } from './friend/friend-socket'
 
@@ -16,7 +16,7 @@ const SocketsActions: Record<
     dispatch: Dispatch<AnyAction>
   ) => void
 > = {
-  user: userSocket,
+  player: playerSocket,
   friend: friendSocket,
   notification: notificationSocket,
 }

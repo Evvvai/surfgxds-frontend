@@ -17,3 +17,19 @@ export const PLAYER = gql`
     }
   }
 `
+
+export const PLAYER_BY_STEAMIDS = gql`
+  query ($steamids64: [String!]!) {
+    playersBySteamids(steamids64: $steamids64) {
+      id
+      steamid64
+      profileurl
+      avatarfull
+      avatarCustom
+      nick
+      lastLoginSite
+      lastLoginServer
+      role
+    }
+  }
+`

@@ -65,6 +65,7 @@
   --color-submit-bg: #7289da;
   --color-submit-bg-hover: #5468b1;
 
+  --color-shadow-highlight: #{$color-shadow-highlight};
   --color-highlight: #{$color-highlight};
   --color-fight: #e74545;
 
@@ -110,6 +111,7 @@ html[data-theme='dark'] {
 
   --ripple-background: #{$ripple-background-dark};
 
+  --color-shadow-highlight: #{$color-shadow-highlight-dark};
   --color-highlight: #{$color-highlight-dark};
 }
 
@@ -147,6 +149,7 @@ html[data-theme='blue'] {
 
   --ripple-background: #{$ripple-background-blue};
 
+  --color-shadow-highlight: #{$color-shadow-highlight-blue};
   --color-highlight: #{$color-highlight-blue};
 }
 
@@ -179,6 +182,10 @@ html {
   @include media.mobile {
     --footer-content-height: 40px;
   }
+
+  @media (max-width: 425px) {
+    --section-menu-aside-width: 100vw;
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -209,18 +216,18 @@ body {
 ::-webkit-scrollbar {
   width: 6px;
   height: 100%;
-  background-color: var(--color-background-content);
+  background-color: var(--color-background-modal);
 }
 
 ::-webkit-scrollbar-thumb {
   border-radius: 10px;
   background-color: rgb(93, 93, 93);
-  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 0 5px var(--color-background-highlight);
   // background-image: linear-gradient(135deg, #8bc6ec 0%, #9599e2 100%);
 }
 
 ::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 1px rgba(0, 0, 0, 0);
+  box-shadow: inset 0 0 1px var(--color-background-highlight);
   border-radius: 10px;
   background-color: transparent;
 }

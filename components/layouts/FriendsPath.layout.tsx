@@ -48,20 +48,6 @@ const FriendsPath: FC = ({ children }) => {
           >
             Requests
           </button>
-          <button
-            className={styles.layoutsFriendsVariousItem}
-            onClick={(e) => {
-              // router.push('/friends/none')
-            }}
-          >
-            . . . . .
-          </button>
-          <button
-            onClick={(e) => console.log('a')}
-            className={styles.layoutsFriendsVariousAdd}
-          >
-            +
-          </button>
         </div>
         {children}
       </div>

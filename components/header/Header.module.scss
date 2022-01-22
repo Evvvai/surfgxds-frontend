@@ -30,17 +30,17 @@
     flex-direction: row;
     justify-content: space-between;
 
-    &First {
-      @include mobile {
-        display: none;
-      }
-    }
+    // &First {
+    //   @include mobile {
+    //     display: none;
+    //   }
+    // }
 
-    &Second {
-      @include mobile {
-        width: 100%;
-      }
-    }
+    // &Second {
+    //   @include mobile {
+    //     width: 100%;
+    //   }
+    // }
   }
 
   &Ul {
@@ -217,7 +217,7 @@
 }
 
 .map {
-  font-size: 1.1rem;
+  font-size: 1.25rem;
   font-weight: 500;
 
   cursor: pointer;

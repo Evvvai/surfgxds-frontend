@@ -5,7 +5,6 @@ import cn from 'classnames'
 import stylesModal from '../../../styles/modal/ModalSkelet.module.scss'
 import styles from './FriendSync.module.scss'
 import { Friend } from '@store'
-import dayjs from 'dayjs'
 const {
   moduleHeader,
   moduleHeaderTitle,
@@ -31,6 +30,7 @@ import { IoIosClose } from 'react-icons/io'
 // Custom Hooks
 import { useFriend } from 'hooks/store/friend'
 import { changeDecode } from 'utils/changeDecode'
+import dayjs from 'dayjs'
 
 // Utils
 

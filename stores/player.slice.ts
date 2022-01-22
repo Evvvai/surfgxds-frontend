@@ -2,6 +2,7 @@ import { createSlice, PayloadAction, Dispatch } from '@reduxjs/toolkit'
 import { browserStorage } from 'utils/browser'
 import { HYDRATE } from 'next-redux-wrapper'
 import { Player, PlayerState } from '@store'
+import { PlayerAuth } from '../types/store/player'
 
 const initialState: PlayerState = {
   isLoggedIn: false,
@@ -14,9 +15,9 @@ const playerSlice = createSlice({
   name: 'player',
   initialState,
   reducers: {
-    setPlayerSetting: (state, { payload }: PayloadAction<Player>) => {
+    setPlayerSetting: (state, { payload }: PayloadAction<PlayerAuth>) => {
       state.isLoggedIn = true
-      state.playerInfo = payload
+      state.playerInfo = payload.player
     },
     removePlayerSetting: (state) => {
       browserStorage.removeItem('jwt')

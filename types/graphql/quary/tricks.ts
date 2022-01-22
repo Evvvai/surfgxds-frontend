@@ -24,17 +24,27 @@ export const TRICKS = gql`
   query ($mapId: Int!) {
     tricks(input: { mapId: $mapId }) {
       id
+      index
       name
       point
       velocity
       dateAdd
-      authorId
       mapId
       route {
         id
         name
         alternativeName
         src
+      }
+      author {
+        id
+        steamid
+        steamid64
+        nick
+        profileurl
+        avatarfull
+        avatarCustom
+        role
       }
     }
   }
@@ -44,12 +54,11 @@ export const TRICKS_STATS = gql`
   query ($mapId: Int!, $steamId: String) {
     tricksStats(input: { mapId: $mapId, steamid: $steamId }) {
       id
+      index
       name
       point
       velocity
       dateAdd
-      author
-      authorSteamid
       completes
       myCompletes
       len
@@ -58,9 +67,16 @@ export const TRICKS_STATS = gql`
         name
         alternativeName
         src
-        x
-        y
-        z
+      }
+      author {
+        id
+        steamid
+        steamid64
+        nick
+        profileurl
+        avatarfull
+        avatarCustom
+        role
       }
     }
   }

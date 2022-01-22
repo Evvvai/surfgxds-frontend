@@ -55,14 +55,14 @@ const friendSlice = createSlice({
       state.term = payload.term
     },
   },
-  extraReducers: {
-    [HYDRATE]: (state, action) => {
-      return {
-        ...state,
-        ...action.payload.friend,
-      }
-    },
-  },
+  // extraReducers: {
+  //   [HYDRATE]: (state, action) => {
+  //     return {
+  //       ...state,
+  //       ...action.payload.friend,
+  //     }
+  //   },
+  // },
 })
 
 // export const {} = friendSlice.actions

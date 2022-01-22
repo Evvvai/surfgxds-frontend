@@ -36,7 +36,7 @@ export default function LeaderboardItem(props: Props): JSX.Element {
 
         <div
           onClick={(e) => {
-            router.push(props.stats.player.steamid64)
+            router.push('/' + props.stats.player.steamid64)
           }}
           className={cn(styles.item, styles.itemPlayer)}
         >

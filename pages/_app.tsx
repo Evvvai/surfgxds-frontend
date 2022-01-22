@@ -15,6 +15,7 @@ import TricksPath from 'components/layouts/TricksPath.layout'
 // Components
 import Header from '../components/header/Header.component'
 import Footer from 'components/footer/Footer.component'
+import MenuAside from 'components/menu-aside/MenuAside.component'
 
 // Utils
 import { AUTH } from 'types/graphql/mutation'
@@ -26,14 +27,19 @@ import { serverHandle } from 'utils/graphql'
 import { appLoaded } from 'stores/app.slice'
 import { MAPS } from 'types/graphql/quary'
 import Cookies, { parseCookies } from 'nookies'
+import { useDispatch } from 'react-redux'
 
 /////////////////////////////////////////////////////////////////////////////////////
 function MyApp({ Component, pageProps }: AppProps) {
+  const dispatch = useDispatch()
+
+  dayjs.extend(relativeTime)
+  dayjs.extend(duration)
+  dayjs.locale('ru')
+  dayjs.locale('en')
+
   useEffect(() => {
-    dayjs.extend(relativeTime)
-    dayjs.extend(duration)
-    dayjs.locale('ru')
-    dayjs.locale('en')
+    dispatch({ type: 'socket/connect' })
   }, [])
 
   return (
@@ -51,6 +57,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       </Head>
       <ThemeProvider>
         {/* <NotificationList /> */}
+        {/* <MenuAside /> */}
         <Header />
         <MainLayout>
           <FriendsPath>
@@ -77,10 +84,13 @@ MyApp.getInitialProps = wrapper.getInitialAppProps(
         const map = cookies.map
 
         if (player && !playerErrors) {
-          store.dispatch(setPlayerSetting(player.player))
+          store.dispatch(setPlayerSetting(player))
         }
         store.dispatch(
-          appLoaded({ availableMaps: maps, currentMap: map || maps[0] })
+          appLoaded({
+            availableMaps: maps,
+            currentMap: maps.find((val) => val.id === map) || maps[0],
+          })
         )
       }
 

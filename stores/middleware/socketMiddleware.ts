@@ -3,8 +3,9 @@ import { RootState } from 'stores/rootReducer'
 
 import SocketsActions from './combineSocketsActions'
 import SocketsOn from './combineSocketsOn'
+import { parseCookies } from 'nookies'
 
-const INIT_KEY = 'user/setPlayerSetting'
+const INIT_KEY = 'player/setPlayerSetting'
 
 // Interface
 interface SocketMiddlewareParams {
@@ -20,7 +21,9 @@ const socketMiddleware = (socket: any) => {
     const { type, payload } = action
 
     // Init
-    if (type === INIT_KEY) {
+    // if (type === INIT_KEY) {
+    if (type === 'socket/connect') {
+      // socket.connect(payload.token)
       socket.connect()
       SocketsOn(socket, dispatch)
       return next(action)

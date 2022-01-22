@@ -1,10 +1,11 @@
-import { Fragment, useEffect, useState } from 'react'
+import { Fragment, useEffect, useRef, useState } from 'react'
 import Head from 'next/head'
 
 // Styles
 import styles from '../../styles/tricks/Tricks.module.scss'
 
 // Icons
+import { GiAbstract007 } from 'react-icons/gi'
 
 // Components
 import TricksListHeader from '../../components/tricks/tricks-header/TricksListHeader.component'
@@ -16,26 +17,50 @@ import { useApp } from 'hooks/store/app'
 
 // Utils
 import { useRouter } from 'next/dist/client/router'
-import dayjs from 'dayjs'
 import { TRICKS_STATS } from 'types/graphql/quary/tricks'
-import { Trick } from '@store'
 import { loadedTricks } from 'stores/trick.slice'
-import { clientHandle } from 'utils/graphql'
+import { serverHandle } from 'utils/graphql'
 import { changedMap } from 'stores/app.slice'
 import { Maps } from '@types'
-import Router from 'next/router'
+import { usePlayer } from '../../hooks/store/player/usePlayer'
+import MyInput from '../../components/UI/MyInput/MyInput.component'
+import { Trick } from '@store'
 
 interface Props {}
 
 /////////////////////////////////////////////////////////////////////////////////////
 const Tricks = (props: Props) => {
-  const { currentMap } = useApp()
-  const { tricks } = useTrick()
+  const router = useRouter()
 
-  // Valid param
+  const { currentMap } = useApp()
+  const { tricks, loadTricks } = useTrick()
+  const { playerInfo } = usePlayer()
+
+  const [term, setTerm] = useState<string>('')
+  const [filteredTricks, setFilteredTricks] = useState<Trick[]>(tricks) // Need migrate into store
+
+  const filteringTriggers = (term: string) => {
+    setFilteredTricks(
+      [...tricks].filter((val) =>
+        val.name.toLowerCase().includes(term.toLowerCase())
+      )
+    )
+  }
+
+  const mounted = useRef<boolean | null>(null)
   useEffect(() => {
-    Router.push('/tricks/' + currentMap?.name)
-  }, [])
+    !mounted.current
+      ? (mounted.current = true)
+      : loadTricks(currentMap, playerInfo?.steamid64)
+
+    router.push(
+      {
+        pathname: '/tricks/' + currentMap?.name,
+      },
+      undefined,
+      { shallow: true }
+    )
+  }, [currentMap])
 
   return (
     <Fragment>
@@ -47,18 +72,21 @@ const Tricks = (props: Props) => {
         <link rel="canonical" />
       </Head>
       <section className={styles.tricks}>
-        <div className={styles.tricksContent}>
-          {/* <div className={search}>
+        <div className={styles.content}>
+          <div className={styles.control}>
             <MyInput
               label={'write term'}
               model={{ value: term, setValue: setTerm }}
               type={'text'}
-          variables    name={'search'}
-              callback={filteringFriends}
+              name={'search'}
+              callback={filteringTriggers}
               debounce={350}
             />
-          </div> */}
-          <TricksList tricks={tricks} />
+            <div className={styles.controlFilters}>
+              <GiAbstract007 />
+            </div>
+          </div>
+          <TricksList tricks={filteredTricks} />
         </div>
       </section>
     </Fragment>
@@ -67,23 +95,15 @@ const Tricks = (props: Props) => {
 
 export default Tricks
 
-Tricks.getInitialProps = async ({ query, ctx, store, res }) => {
-  const isLoad = store.getState().trick.tricks.length
-  const currentMap = store.getState().app.currentMap
-  const queryMap: Maps =
-    store.getState().app.availableMaps.find((map) => map.name === query.map) ||
-    currentMap
+Tricks.getInitialProps = async ({ query, store, res }) => {
+  const isLoad = store.getState().trick.isLoad
 
-  if (!isLoad || queryMap.id !== currentMap.id) {
-    const [data, errors] = await clientHandle(TRICKS_STATS, {
-      mapId: queryMap.id,
+  if (!isLoad) {
+    const currentMap = store.getState().app.currentMap
+    const [data, errors] = await serverHandle(res, TRICKS_STATS, {
+      mapId: currentMap.id,
       steamId: store.getState().player.playerInfo.steamid64,
     })
-
     store.dispatch(loadedTricks(data))
-    store.dispatch(changedMap(queryMap))
   }
-
-  // res.writeHead(301, { Location: '/tricks/' + currentMap.name })
-  // res.end()
 }

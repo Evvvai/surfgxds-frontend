@@ -43,6 +43,8 @@ module.exports = {
     NEXT_MESSAGINGSENDERID: process.env.NEXT_MESSAGINGSENDERID,
     NEXT_APPID: process.env.NEXT_APPID,
     NEXT_MEASUREMENTID: process.env.NEXT_MEASUREMENTID,
+    NEXT_MY_ARENA_TOKEN: process.env.NEXT_MY_ARENA_TOKEN,
+    SITE_URL: process.env.NEXT_SITE_URL,
   },
   excludeFile: (str) => /\/src\/sw\/.*/.test(str),
   webpackDevMiddleware: (config) => {

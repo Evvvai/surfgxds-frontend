@@ -26,8 +26,7 @@ interface Props {
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 export default function LeaderboardList(props: Props): JSX.Element {
-  const { pagination, changePagination, top } = useLeaderboard()
-  const router = useRouter()
+  const { pagination, changePagination } = useLeaderboard()
 
   const handleClickPagination = (type: string) => () => {
     if (type === 'back')
@@ -45,15 +44,14 @@ export default function LeaderboardList(props: Props): JSX.Element {
       })
   }
 
-  // useEffect(() => {
-  // }, [])
-
   return (
     <div className={styles.list}>
       <LeaderboardListHeader />
-      {props?.top?.map((stats) => {
-        return <LeaderboardItem key={stats.place} stats={stats} />
+
+      {props.top.map((val) => {
+        return <LeaderboardItem key={val.place} stats={val} />
       })}
+
       <div className={styles.pagination}>
         <button
           onClick={handleClickPagination('back')}
@@ -67,7 +65,7 @@ export default function LeaderboardList(props: Props): JSX.Element {
         <button
           onClick={handleClickPagination('next')}
           className={cn(styles.paginationButton, {
-            [styles.paginationNone]: top?.length < pagination.limit,
+            [styles.paginationNone]: props.top?.length < pagination.limit,
           })}
         >
           <span>Next</span>

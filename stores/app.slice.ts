@@ -6,7 +6,7 @@ import { HYDRATE } from 'next-redux-wrapper'
 const initialState: AppState = {
   isLoad: false,
 
-  currentMap: null,
+  currentMap: {} as Maps,
   availableMaps: [],
 
   isMenuOpen: false,

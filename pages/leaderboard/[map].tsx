@@ -1,6 +1,6 @@
-import { Fragment, useEffect, useState } from 'react'
+import { Fragment, useEffect, useRef, useState } from 'react'
 import Head from 'next/head'
-import { clientHandle } from 'utils/graphql'
+import { serverHandle } from 'utils/graphql'
 import { LEADERBOARD } from 'types/graphql/quary'
 import { loadedLeaderboard } from 'stores/leaderboard.slice'
 
@@ -8,30 +8,44 @@ import { loadedLeaderboard } from 'stores/leaderboard.slice'
 import styles from '../../styles/leaderboard/Leaderboard.module.scss'
 
 // Components
-import LeaderboardListHeader from '../../components/leaderboard/leaderboard-heard/LeaderboardListHeader.component'
 import LeaderboardList from '../../components/leaderboard/LeaderboardList.component'
 
 // Custom hook
 import { useLeaderboard } from 'hooks/store/leaderboard'
+import { useApp } from 'hooks/store/app'
 
 // Utils
 import { changedMap } from 'stores/app.slice'
 import { Maps } from '@types'
-import Router, { useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 
 interface Props {}
 
 /////////////////////////////////////////////////////////////////////////////////////
 const Leaderboard = (props: Props) => {
   const router = useRouter()
-  const { pagination, top } = useLeaderboard()
+  const { currentMap } = useApp()
+  const { loadLeaderboard, pagination, top } = useLeaderboard()
 
-  // Sync
+  const mounted = useRef<boolean | null>(null)
   useEffect(() => {
-    router.query.limit = pagination.limit.toString()
-    router.query.offset = pagination.offset.toString()
-    router.push(router)
-  }, [pagination])
+    !mounted.current
+      ? (mounted.current = true)
+      : loadLeaderboard(currentMap, pagination)
+
+    router.push(
+      {
+        pathname: '/leaderboard/' + currentMap.name,
+        query: {
+          limit: pagination.limit.toString(),
+          offset: pagination.offset.toString(),
+        },
+      },
+      undefined,
+      { shallow: true }
+    )
+    window.scrollTo(0, 0)
+  }, [pagination, currentMap])
 
   return (
     <Fragment>
@@ -66,31 +80,30 @@ const Leaderboard = (props: Props) => {
 
 export default Leaderboard
 
-Leaderboard.getInitialProps = async ({ query, ctx, store }) => {
-  const limit = Math.abs(+query.limit) || 100
-  const offset = Math.abs(+query.offset) || 0
-  const isLoad = store.getState().leaderboard?.top?.length
-  const currentMap = store.getState().app.currentMap
-  const queryMap: Maps =
-    store.getState().app.availableMaps.find((map) => map.name === query.map) ||
-    currentMap
+Leaderboard.getInitialProps = async ({ query, res, store }) => {
+  const isLoad = store.getState().leaderboard.isLoad
 
-  if (!isLoad || queryMap.id !== currentMap.id) {
-    const [data, errors] = await clientHandle(LEADERBOARD, {
-      mapId: queryMap.id,
+  if (!isLoad) {
+    const limit = Math.abs(+query.limit) || 100
+    const offset = Math.abs(+query.offset) || 0
+    const currentMap = store.getState().app.currentMap
+
+    const [top, topErrors] = await serverHandle(res, LEADERBOARD, {
+      mapId: currentMap.id,
       limit: limit,
       offset: offset,
     })
 
-    store.dispatch(
-      loadedLeaderboard({
-        top: data,
-        pagination: {
-          limit,
-          offset,
-        },
-      })
-    )
-    store.dispatch(changedMap(queryMap))
+    if (top) {
+      store.dispatch(
+        loadedLeaderboard({
+          top,
+          pagination: {
+            limit,
+            offset,
+          },
+        })
+      )
+    }
   }
 }

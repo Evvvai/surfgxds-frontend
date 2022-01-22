@@ -11,7 +11,6 @@ import { usePlayer } from '../../../hooks/store/player/usePlayer'
 // Utils
 import { useRouter } from 'next/dist/client/router'
 import cn from 'classnames'
-import dayjs from 'dayjs'
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 export default function LeaderboardListHeader(): JSX.Element {

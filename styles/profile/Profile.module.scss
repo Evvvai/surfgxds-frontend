@@ -8,7 +8,7 @@
     height: calc(100vw / 5);
 
     &:hover &Edit {
-      opacity: 1;
+      opacity: 0.8;
       transition: all 0.2s ease-in;
     }
 
@@ -49,10 +49,17 @@
       border-radius: 50%;
       background-color: var(--color-background-modal);
 
+      padding: 15px;
+      svg {
+        height: 100%;
+        width: 100%;
+        fill: var(--color-text);
+      }
+
       transition: all 0.2s ease-in;
 
       &:hover {
-        opacity: 1;
+        opacity: 0.8;
         transition: all 0.2s ease-in;
       }
     }
@@ -81,7 +88,7 @@
     height: 100px;
 
     &:hover &Edit {
-      opacity: 1;
+      opacity: 0.8;
       transition: all 0.2s ease-in;
     }
 
@@ -127,8 +134,15 @@
 
       transition: all 0.2s ease-in;
 
+      padding: 15px;
+      svg {
+        height: 100%;
+        width: 100%;
+        fill: var(--color-text);
+      }
+
       &:hover {
-        opacity: 1;
+        opacity: 0.8;
         transition: all 0.2s ease-in;
       }
     }

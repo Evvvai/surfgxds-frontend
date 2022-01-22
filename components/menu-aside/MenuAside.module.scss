@@ -3,15 +3,15 @@
   height: 100%;
   width: 100%;
   overflow: auto;
-  z-index: 20;
+  z-index: 100;
 
   &Inner {
     position: fixed;
     top: 0;
     left: 0;
 
-    height: 100vh;
-    padding-top: var(--header-height);
+    height: 100%;
+    // padding-top: var(--header-height);
     // background-color: var(--color-background-modal);
     width: var(--section-menu-aside-width);
 
@@ -40,6 +40,29 @@
     text-transform: uppercase;
     letter-spacing: 10px;
   }
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+
+.connect {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+
+  a {
+    margin: 5px 0;
+    font-size: 1.5rem;
+    color: var(--color-text-invert);
+    letter-spacing: 5px;
+    cursor: pointer;
+  }
+
+  > :hover {
+    color: var(--color-sub-text-invert);
+    transition: all 0.2s ease-in;
+  }
+  transition: all 0.2s ease-out;
 }
 
 .hr {

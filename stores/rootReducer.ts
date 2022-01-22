@@ -7,6 +7,8 @@ import friendSlice from './friend.slice'
 import notificationSlice from './notification.slice'
 import trickSlice from './trick.slice'
 import leaderboardSlice from './leaderboard.slice'
+import trickEditorSlice from './trick-editor.slice'
+import trickSuggestedSlice from './trick-suggested.slice'
 
 // Combine
 export const rootReducer = combineReducers({
@@ -16,6 +18,8 @@ export const rootReducer = combineReducers({
   [notificationSlice.name]: notificationSlice.reducer,
   [trickSlice.name]: trickSlice.reducer,
   [leaderboardSlice.name]: leaderboardSlice.reducer,
+  [trickEditorSlice.name]: trickEditorSlice.reducer,
+  [trickSuggestedSlice.name]: trickSuggestedSlice.reducer,
 })
 
 export type RootState = ReturnType<typeof rootReducer>

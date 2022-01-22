@@ -40,7 +40,7 @@ export const usePlayer = () => {
       maxAge: 30 * 24 * 60 * 60,
       path: '/',
     })
-    setPlayerSetting(data.player)
+    setPlayerSetting(data)
   }, [])
 
   return { isLoggedIn, playerInfo, authPlayer, logOut, setPlayer }

@@ -26,9 +26,11 @@ export const clientHandle = async (ql, variables) => {
     errors = error
   }
 
-  if (data && !errors) data = data[Object.keys(data)[0]]
+  if (data && !errors) {
+    data = data[Object.keys(data)[0]]
+  } else errors = errors?.response?.errors[0]?.extensions?.response
 
-  return [data, errors?.response?.errors[0].extensions.response || null]
+  return [data, errors]
 }
 
 // Simplify error handle

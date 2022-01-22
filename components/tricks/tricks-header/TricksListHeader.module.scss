@@ -16,7 +16,7 @@
   font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
-  padding: 5px;
+  padding: 4px 5px;
 
   cursor: pointer;
 
@@ -32,8 +32,12 @@
   &Tn {
     width: 35%;
 
+    :first-child {
+      color: var(--color-sub-text);
+    }
+
     :last-child {
-      color: var(---color-trick-name);
+      color: var(--color-trick-name);
     }
 
     @include before-desktop {
@@ -45,6 +49,10 @@
     width: 25%;
     align-items: center;
 
+    :first-child {
+      color: var(--color-sub-text);
+    }
+
     :last-child {
       color: var(--color-point);
     }
@@ -53,6 +61,10 @@
   &Tc {
     width: 25%;
     align-items: flex-end;
+
+    :first-child {
+      color: var(--color-sub-text);
+    }
 
     @include mobile {
       display: none;
@@ -63,6 +75,10 @@
     width: 25%;
     align-items: flex-end;
 
+    :first-child {
+      color: var(--color-sub-text);
+    }
+
     @include mobile {
       display: none;
     }
@@ -71,6 +87,10 @@
   &Tl {
     width: 15%;
     align-items: flex-end;
+
+    :first-child {
+      color: var(--color-sub-text);
+    }
 
     @include mobile {
       display: none;

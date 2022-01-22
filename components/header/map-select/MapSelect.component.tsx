@@ -13,6 +13,7 @@ import Link from 'next/link'
 
 // Custom Hooks
 import { useApp } from 'hooks/store/app'
+import { Maps } from '@types'
 
 // Utils
 
@@ -24,7 +25,12 @@ interface Props {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 export default function MapSelect(props: Props): JSX.Element {
-  const { availableMaps } = useApp()
+  const { availableMaps, changeMap } = useApp()
+
+  const handleClickMap = (map: Maps) => () => {
+    props.close()
+    changeMap(map)
+  }
 
   return (
     <form
@@ -40,14 +46,15 @@ export default function MapSelect(props: Props): JSX.Element {
           <ul className={styles.list}>
             {availableMaps.map((map) => {
               return (
-                <li onClick={() => props.close()} key={map.id}>
-                  <Link
+                <li onClick={handleClickMap(map)} key={map.id}>
+                  <a className={styles.item}>{map.name}</a>
+                  {/* <Link
                     href={{
                       pathname: '/tricks/' + map.name,
                     }}
                   >
                     <a className={styles.item}>{map.name}</a>
-                  </Link>
+                  </Link> */}
                 </li>
               )
             })}

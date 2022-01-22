@@ -47,9 +47,10 @@ import { useApp, useMenu } from 'hooks/store/app'
 import { Portal } from 'utils/portal'
 import Link from 'next/link'
 import cn from 'classnames'
+import { FC } from 'react'
 
 ///////////////////////////////////////////////////////////////////////////////////////////
-export default function Header(): JSX.Element {
+const Header: FC = () => {
   // const { isOnline } = useNetworkChange() // For pwa
   const { isFriendOpen, openFriend, closeFriend } = useFriend()
   const { isNotificationOpen, openNotification, closeNotification } =
@@ -117,7 +118,7 @@ export default function Header(): JSX.Element {
               </li>
               <li className={headerLi}>
                 <span onClick={handleClickMap} className={styles.map}>
-                  {currentMap?.name}
+                  {currentMap.alternativeName}
                 </span>
                 <Portal selector="#modal">
                   <Modal isOpen={isMapOpen} setOpen={setIsMapOpen}>
@@ -196,3 +197,5 @@ export default function Header(): JSX.Element {
     </Fragment>
   )
 }
+
+export default React.memo(Header)

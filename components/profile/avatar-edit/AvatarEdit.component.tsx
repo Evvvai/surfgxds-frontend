@@ -68,10 +68,6 @@ export default function AvatarEdit(props: Props): JSX.Element {
     console.log(e.target.files[0])
   }
 
-  const clickCloseHandler = (e: any) => {
-    // props.setAvatarEditorShow(false)
-  }
-
   const clickUploadHandler = (e: any) => {
     const storageRef = ref(storage, `avatar/${playerInfo.id.toString()}`)
     const uploadTask = uploadBytesResumable(storageRef, image.image)
@@ -117,9 +113,6 @@ export default function AvatarEdit(props: Props): JSX.Element {
       <section className={stylesModal.formInner}>
         <div className={paHeader}>
           <div className={paHeaderTitle}>Cover settings</div>
-          <div onClick={clickCloseHandler} className={paHeaderClose}>
-            {/* <Close /> */}
-          </div>
         </div>
 
         <div className={paPreview}>
@@ -174,7 +167,7 @@ export default function AvatarEdit(props: Props): JSX.Element {
           >
             Upload
           </div>
-          <div onClick={clickCloseHandler} className={paSubmitClose}>
+          <div onClick={props.close} className={paSubmitClose}>
             Close
           </div>
         </div>

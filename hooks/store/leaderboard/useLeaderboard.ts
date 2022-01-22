@@ -7,6 +7,7 @@ import { Pagination } from '../../../types/store'
 import { clientHandle } from 'utils/graphql'
 import { LEADERBOARD } from 'types/graphql/quary'
 import { useApp } from '../app'
+import { Maps } from '@types'
 
 // Leaderboard Hook Selector / Dispatch
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -19,6 +20,8 @@ export const useLeaderboard = () => {
     dispatch
   )
 
+  const { pagination, top } = useTypesSelector((state) => state.leaderboard)
+
   const changePagination = useCallback(async (pagination: Pagination) => {
     const [data, errors] = await clientHandle(LEADERBOARD, {
       mapId: currentMap?.id,
@@ -29,7 +32,24 @@ export const useLeaderboard = () => {
     loadedLeaderboard({ top: data, pagination })
   }, [])
 
-  const { pagination, top } = useTypesSelector((state) => state.leaderboard)
+  const loadLeaderboard = useCallback(
+    async (map: Maps, pagination: Pagination) => {
+      const [data, errors] = await clientHandle(LEADERBOARD, {
+        mapId: map.id,
+        limit: pagination.limit,
+        offset: pagination.offset,
+      })
 
-  return { loadedLeaderboard, changePagination, pagination, top }
+      loadedLeaderboard({ top: data, pagination })
+    },
+    []
+  )
+
+  return {
+    loadLeaderboard,
+    loadedLeaderboard,
+    changePagination,
+    pagination,
+    top,
+  }
 }

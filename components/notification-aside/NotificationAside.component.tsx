@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { FC } from 'react'
 
 // Styles
 import styles from './NotificationAside.module.scss'
@@ -23,10 +23,9 @@ import { useNotification } from 'hooks/store/notification'
 // Utils
 import cn from 'classnames'
 import { useRouter } from 'next/dist/client/router'
-import dayjs from 'dayjs'
 
 ///////////////////////////////////////////////////////////////////////////////////////////
-export default function NotificationAside(): JSX.Element {
+const NotificationAside: FC = () => {
   const {
     openNotification,
     closeNotification,
@@ -56,3 +55,5 @@ export default function NotificationAside(): JSX.Element {
     </div>
   )
 }
+
+export default React.memo(NotificationAside)

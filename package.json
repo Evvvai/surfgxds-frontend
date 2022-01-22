@@ -5,6 +5,7 @@
     "dev": "next",
     "build": "next build",
     "postbuild": "next-sitemap",
+    "sitemap": "next-sitemap",
     "export": "BROWSERSLIST_IGNORE_OLD_DATA=true next export",
     "start": "NODE_ENV=production next start",
     "lint": "next lint"
@@ -16,6 +17,8 @@
     "@reduxjs/toolkit": "^1.6.2",
     "@svgr/webpack": "^6.1.0",
     "@types/firebase": "^3.2.1",
+    "autosuggest-highlight": "^3.2.0",
+    "axios": "^0.25.0",
     "dayjs": "^1.10.7",
     "firebase": "^9.6.1",
     "graphql": "^16.2.0",

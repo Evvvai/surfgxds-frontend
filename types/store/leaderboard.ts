@@ -1,6 +1,7 @@
 import { Player } from '@store'
 
 export interface LeaderboardState {
+  isLoad: boolean
   top: Leaderboard[]
   pagination: Pagination
 }

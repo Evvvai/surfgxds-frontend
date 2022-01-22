@@ -17,6 +17,7 @@ $color-footer: #8b8c8d;
 $color-footer-hover: #6db6ff;
 // fill="rgba(79, 137, 246)"
 $color-highlight: rgba(79, 137, 246);
+$color-shadow-highlight: rgb(167, 167, 167);
 
 $color-background: #eeeeee;
 $color-background-content: #e4e4e4;
@@ -97,6 +98,7 @@ $ripple-background-dark: radial-gradient(
 
 // Etc
 $color-highlight-dark: rgb(255, 71, 71);
+$color-shadow-highlight-dark: rgb(36, 36, 36);
 
 // Blue theme
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -144,6 +146,7 @@ $ripple-background-blue: radial-gradient(
 
 // Etc
 $color-highlight-blue: rgba(79, 137, 246);
+$color-shadow-highlight-blue: rgb(56, 65, 80);
 
 // Other values
 $color-success: #52c41a;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 
 // Styles
 import styles from './FriendAside.module.scss'
@@ -42,12 +42,12 @@ import { useFriendFiltered } from 'hooks/store/friend'
 // Utils
 import cn from 'classnames'
 import { useRouter } from 'next/dist/client/router'
-import dayjs from 'dayjs'
 import Modal from 'components/UI/Modal/Modal.component'
 import { Portal } from 'utils/portal'
+import dayjs from 'dayjs'
 
 ///////////////////////////////////////////////////////////////////////////////////////////
-export default function FriendAside(): JSX.Element {
+const FriendAside: FC = () => {
   const { isFriendOpen, openFriend, closeFriend, friendsList, isFriendLoad } =
     useFriend()
   const { termFriend, filteredFriendsIds } = useFriendFiltered()
@@ -171,3 +171,5 @@ export default function FriendAside(): JSX.Element {
     </div>
   )
 }
+
+export default React.memo(FriendAside)

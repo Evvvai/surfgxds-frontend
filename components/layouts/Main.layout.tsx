@@ -16,12 +16,14 @@ import MenuAside from '../menu-aside/MenuAside.component'
 //////////////////////////////////////////////////////////////////////////////////////
 const MainLayout: FC = ({ children }) => {
   return (
-    <main className={layoutsMain}>
-      {children}
+    <Fragment>
       <MenuAside />
-      <FriendAside />
-      <NotificationAside />
-    </main>
+      <main className={layoutsMain}>
+        {children}
+        <FriendAside />
+        <NotificationAside />
+      </main>
+    </Fragment>
   )
 }
 export default MainLayout

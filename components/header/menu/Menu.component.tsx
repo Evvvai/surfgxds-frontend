@@ -97,7 +97,7 @@ export default function Menu(props: Props): JSX.Element {
           <FaUserFriends className={itemIcon} />
           <span>Friends</span>
         </li>
-        <li className={item}>
+        {/* <li className={item}>
           <Link href={'/'}>
             <a>
               <GiBowenKnot className={itemIcon} />
@@ -112,9 +112,9 @@ export default function Menu(props: Props): JSX.Element {
               <span>Not Implimented</span>
             </a>
           </Link>
-        </li>
+        </li>*/}
         <hr className={itemHr} />
-        <li className={item}>
+        {/* <li className={item}>
           <Link href={'/'}>
             <a>
               <GiBowenKnot className={itemIcon} />
@@ -129,7 +129,7 @@ export default function Menu(props: Props): JSX.Element {
               <span>Not Implimented</span>
             </a>
           </Link>
-        </li>
+        </li> */}
         <li className={item}>
           <ThemeSection />
         </li>

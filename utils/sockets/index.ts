@@ -6,10 +6,11 @@ import getToken from 'utils/getToken'
 export default class SocketClient {
   socket: Socket | null | undefined
 
-  connect() {
+  connect(token: string) {
     if (process.env.NEXT_BACKEND_URL) {
       this.socket = io(process.env.NEXT_BACKEND_URL, {
         extraHeaders: {
+          // Authorization: token,
           Authorization: getToken(),
         },
       })

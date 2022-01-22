@@ -19,9 +19,12 @@ const {
   profileInner,
 } = styles
 
-// Components
+// Icons
 import Icon from 'components/icon/Icon.component'
 import FooterWaveIcon from '../assets/icon/FooterWave.svg'
+import { TiEdit } from 'react-icons/ti'
+
+// Components
 import AvatarEditModal from 'components/profile/avatar-edit/AvatarEdit.component'
 import DashboardEditModal from 'components/profile/dasboard-edit/DashboardEdit.component'
 
@@ -41,7 +44,7 @@ interface Props {
 }
 
 /////////////////////////////////////////////////////////////////////////////////////
-const Profile: NextPage<Props> = ({ playerData }) => {
+const Profile = ({ playerData }: Props) => {
   const { playerInfo } = usePlayer()
 
   const [isAvatarEdit, setIsAvatarEdit] = useState<boolean>(false)
@@ -67,7 +70,8 @@ const Profile: NextPage<Props> = ({ playerData }) => {
               onClick={(e) => setIsDashboardEdit(true)}
               className={DashboardEdit}
             >
-              <Icon asset={'Edit'} />
+              {/* <Icon asset={'Edit'} /> */}
+              <TiEdit />
               <Portal selector="#modal">
                 <Modal isOpen={isDashboardEdit} setOpen={setIsDashboardEdit}>
                   <DashboardEditModal />
@@ -96,7 +100,8 @@ const Profile: NextPage<Props> = ({ playerData }) => {
                 onClick={(e) => setIsAvatarEdit(true)}
                 className={AvatarEdit}
               >
-                <Icon asset={'Edit'} />
+                {/* <Icon asset={'Edit'} /> */}
+                <TiEdit />
                 <Portal selector="#modal">
                   <Modal isOpen={isAvatarEdit} setOpen={setIsAvatarEdit}>
                     <AvatarEditModal />
@@ -149,5 +154,38 @@ export const getServerSideProps = async (ctx) => {
     }
   }
 }
+
+// Profile.getInitialProps = async ({ query, store, res }) => {
+//   try {
+//     const [data, errors] = await clientHandle(PLAYER, {
+//       steamid64: query.steamid,
+//     })
+
+//     if (!data || errors) {
+//       return {
+//         props: {},
+//         redirect: {
+//           destination: '/404',
+//           permanent: false,
+//         },
+//       }
+//     } else {
+//       return {
+//         props: {
+//           playerData: data,
+//         },
+//       }
+//     }
+//   } catch (err) {
+//     // console.log('err', err)
+//     return {
+//       props: {},
+//       redirect: {
+//         destination: '/404',
+//         permanent: false,
+//       },
+//     }
+//   }
+// }
 
 export default Profile
