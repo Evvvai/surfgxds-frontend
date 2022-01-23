@@ -9,6 +9,4 @@ export interface TrickEditorState {
   route: Trigger[]
   velocity: boolean
   trickEditingId: number | null
-
-  triggers: Trigger[]
 }

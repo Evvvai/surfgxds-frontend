@@ -38,7 +38,7 @@ const trickEditorSlice = createSlice({
     sendTrick: (state) => {
       state.name = ''
       state.points = null
-      state.trigger = state.triggers[0]
+      state.trigger = {} as Trigger
       state.route = []
       state.velocity = false
       state.trickEditingId = null
@@ -46,18 +46,17 @@ const trickEditorSlice = createSlice({
     clearTrickEditor: (state) => {
       state.name = ''
       state.points = null
-      state.trigger = state.triggers[0]
+      state.trigger = {} as Trigger
       state.route = []
       state.velocity = false
       state.trickEditingId = null
     },
-
     resetTrickEditor: (state) => {
       state.isLoad = false
 
       state.name = ''
       state.points = null
-      state.trigger = state.triggers[0]
+      state.trigger = {} as Trigger
       state.route = []
       state.velocity = false
       state.trickEditingId = null
