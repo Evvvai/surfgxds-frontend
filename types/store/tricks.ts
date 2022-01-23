@@ -1,7 +1,9 @@
 import { Player } from './player'
+
 export interface TrickState {
   isLoad: boolean
   tricks: Trick[]
+  triggers: Trigger[]
 }
 
 export interface Trick {
@@ -15,6 +17,7 @@ export interface Trick {
   authorSteamid: string | null
   completes: string | null
   myCompletes: string | null
+  routeIds: string
   author: Player
 
   /////////////////////////////////////////////////////////////////////////////////

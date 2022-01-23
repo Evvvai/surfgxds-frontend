@@ -22,20 +22,24 @@ import parse from 'autosuggest-highlight/parse'
 import match from 'autosuggest-highlight/match'
 import cn from 'classnames'
 import { serverHandle } from 'utils/graphql'
-import { TRIGGERS } from 'types/graphql/quary'
+import { TRICKS_STATS, TRIGGERS } from 'types/graphql/quary'
 import { Maps } from '@types'
 import { loadedTrickEditor } from 'stores/trick-editor.slice'
 import { changedMap } from 'stores/app.slice'
 import { Trigger } from '@store'
 import { Portal } from 'utils/portal'
+import { useTrick } from 'hooks/store/trick'
+import { loadedTricks } from 'stores/trick.slice'
+import { usePlayer } from 'hooks/store/player'
 
 interface Props {}
 
 /////////////////////////////////////////////////////////////////////////////////////
 const Triggers = (props: Props) => {
   const router = useRouter()
-  const { triggers, loadTrickEditor } = useTrickEditor()
+  const { triggers, loadTricks } = useTrick()
   const { currentMap } = useApp()
+  const { playerInfo } = usePlayer()
 
   const [isCreatorOpen, setIsCreatorOpen] = useState<boolean>(false)
 
@@ -48,7 +52,9 @@ const Triggers = (props: Props) => {
 
   const mounted = useRef<boolean | null>(null)
   useEffect(() => {
-    !mounted.current ? (mounted.current = true) : loadTrickEditor(currentMap)
+    !mounted.current
+      ? (mounted.current = true)
+      : loadTricks(currentMap, playerInfo?.steamid64)
 
     router.push(
       {
@@ -139,13 +145,17 @@ const Triggers = (props: Props) => {
 export default Triggers
 
 Triggers.getInitialProps = async ({ query, store, res }) => {
-  const isLoad = store.getState().trickEditor.isLoad
+  const isLoad = store.getState().trick.isLoad
 
   if (!isLoad) {
     const currentMap = store.getState().app.currentMap
-    const [data, errors] = await serverHandle(res, TRIGGERS, {
+    const [triggers, triggersErrors] = await serverHandle(res, TRIGGERS, {
       mapId: currentMap.id,
     })
-    store.dispatch(loadedTrickEditor(data))
+    const [tricks, errorsTricks] = await serverHandle(res, TRICKS_STATS, {
+      mapId: currentMap.id,
+      steamId: store.getState().player.playerInfo?.steamid64,
+    })
+    store.dispatch(loadedTricks({ tricks, triggers }))
   }
 }

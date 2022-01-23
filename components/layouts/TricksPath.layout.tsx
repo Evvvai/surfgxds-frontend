@@ -12,6 +12,7 @@ import styles from '../../styles/layouts/Layouts.module.scss'
 import { useRouter } from 'next/dist/client/router'
 import { useApp } from 'hooks/store/app'
 import Link from 'next/link'
+import cn from 'classnames'
 
 // Utils
 
@@ -32,14 +33,16 @@ const TricksPath: FC = ({ children }) => {
     }
   }, [router.pathname])
 
-  if (section !== undefined)
-    return (
-      <div>
+  return (
+    <div>
+      <div className={cn({ [styles.hide]: section === undefined })}>
         <div className={styles.layoutsTricksTitle}>
           <h1>Tricks</h1>
         </div>
         <ul className={styles.layoutsTricksVarious}>
-          <span style={{ transform: 'translateX(' + 100 * section + 'px)' }} />
+          <span
+            style={{ transform: 'translateX(' + 100 * (section || 0) + 'px)' }}
+          />
           <li className={styles.layoutsTricksVariousItem}>
             <Link
               href={{
@@ -68,11 +71,10 @@ const TricksPath: FC = ({ children }) => {
             </Link>
           </li>
         </ul>
-        {children}
       </div>
-    )
-
-  return <Fragment>{children}</Fragment>
+      {children}
+    </div>
+  )
 }
 export default TricksPath
 

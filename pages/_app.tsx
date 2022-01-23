@@ -28,9 +28,11 @@ import { appLoaded } from 'stores/app.slice'
 import { MAPS } from 'types/graphql/quary'
 import Cookies, { parseCookies } from 'nookies'
 import { useDispatch } from 'react-redux'
+import { usePlayer } from '../hooks/store/player/usePlayer'
 
 /////////////////////////////////////////////////////////////////////////////////////
 function MyApp({ Component, pageProps }: AppProps) {
+  const { isLoggedIn } = usePlayer()
   const dispatch = useDispatch()
 
   dayjs.extend(relativeTime)
@@ -39,7 +41,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   dayjs.locale('en')
 
   useEffect(() => {
-    dispatch({ type: 'socket/connect' })
+    if (isLoggedIn) dispatch({ type: 'socket/connect' })
   }, [])
 
   return (

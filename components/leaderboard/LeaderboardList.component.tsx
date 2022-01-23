@@ -48,7 +48,7 @@ export default function LeaderboardList(props: Props): JSX.Element {
     <div className={styles.list}>
       <LeaderboardListHeader />
 
-      {props.top.map((val) => {
+      {props.top?.map((val) => {
         return <LeaderboardItem key={val.place} stats={val} />
       })}
 

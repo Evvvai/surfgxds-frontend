@@ -34,13 +34,13 @@ export const useLeaderboard = () => {
 
   const loadLeaderboard = useCallback(
     async (map: Maps, pagination: Pagination) => {
-      const [data, errors] = await clientHandle(LEADERBOARD, {
+      const [top, errors] = await clientHandle(LEADERBOARD, {
         mapId: map.id,
         limit: pagination.limit,
         offset: pagination.offset,
       })
 
-      loadedLeaderboard({ top: data, pagination })
+      loadedLeaderboard({ top, pagination })
     },
     []
   )

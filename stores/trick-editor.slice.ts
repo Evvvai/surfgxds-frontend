@@ -11,8 +11,6 @@ const initialState: TrickEditorState = {
   route: [],
   velocity: false,
   trickEditingId: null,
-
-  triggers: [],
 }
 
 // Slice
@@ -23,7 +21,6 @@ const trickEditorSlice = createSlice({
   reducers: {
     loadedTrickEditor: (state, { payload }: PayloadAction<Trigger[]>) => {
       state.isLoad = true
-      state.triggers = payload
       state.trigger = payload[0]
     },
     setRouteTrick: (state, { payload }: PayloadAction<Trigger[]>) => {

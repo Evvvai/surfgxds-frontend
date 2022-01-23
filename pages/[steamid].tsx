@@ -1,6 +1,6 @@
-import client, { clientHandle } from 'utils/graphql'
+import { useState } from 'react'
+import { clientHandle } from 'utils/graphql'
 import { PLAYER } from 'types/graphql/quary'
-import { NextPage } from 'next'
 
 // Styles
 import styles from '../styles/profile/Profile.module.scss'
@@ -20,7 +20,6 @@ const {
 } = styles
 
 // Icons
-import Icon from 'components/icon/Icon.component'
 import FooterWaveIcon from '../assets/icon/FooterWave.svg'
 import { TiEdit } from 'react-icons/ti'
 
@@ -32,12 +31,10 @@ import DashboardEditModal from 'components/profile/dasboard-edit/DashboardEdit.c
 import { usePlayer } from '../hooks/store/player/usePlayer'
 
 // Utils
-import cn from 'classnames'
-import { useState } from 'react'
 import { Portal } from 'utils/portal'
 import Modal from 'components/UI/Modal/Modal.component'
 import { Player } from '@store'
-import { changeDecode } from 'utils/changeDecode'
+import { useRouter } from 'next/dist/client/router'
 
 interface Props {
   playerData: Player
@@ -45,6 +42,7 @@ interface Props {
 
 /////////////////////////////////////////////////////////////////////////////////////
 const Profile = ({ playerData }: Props) => {
+  const router = useRouter()
   const { playerInfo } = usePlayer()
 
   const [isAvatarEdit, setIsAvatarEdit] = useState<boolean>(false)
@@ -57,7 +55,7 @@ const Profile = ({ playerData }: Props) => {
         <div className={Dashboard}>
           <img
             src={
-              playerData.dashboard !== null
+              playerData?.dashboard !== null
                 ? playerData.dashboard
                 : process.env.DASHBOARD_NULL
             }
@@ -122,70 +120,21 @@ const Profile = ({ playerData }: Props) => {
   )
 }
 
-export const getServerSideProps = async (ctx) => {
+Profile.getInitialProps = async ({ query, store, res }) => {
   try {
-    const [data, errors] = await clientHandle(PLAYER, {
-      steamid64: ctx.params.steamid,
+    const [playerData, errors] = await clientHandle(PLAYER, {
+      steamid64: query.steamid,
     })
 
-    if (!data || errors) {
-      return {
-        props: {},
-        redirect: {
-          destination: '/404',
-          permanent: false,
-        },
-      }
-    } else {
-      return {
-        props: {
-          playerData: data,
-        },
-      }
-    }
-  } catch (err) {
-    // console.log('err', err)
+    if (!playerData || errors) throw new Error()
+
     return {
-      props: {},
-      redirect: {
-        destination: '/404',
-        permanent: false,
-      },
+      playerData,
     }
+  } catch (e) {
+    res.writeHead(307, { Location: '/404' })
+    res.end()
   }
 }
-
-// Profile.getInitialProps = async ({ query, store, res }) => {
-//   try {
-//     const [data, errors] = await clientHandle(PLAYER, {
-//       steamid64: query.steamid,
-//     })
-
-//     if (!data || errors) {
-//       return {
-//         props: {},
-//         redirect: {
-//           destination: '/404',
-//           permanent: false,
-//         },
-//       }
-//     } else {
-//       return {
-//         props: {
-//           playerData: data,
-//         },
-//       }
-//     }
-//   } catch (err) {
-//     // console.log('err', err)
-//     return {
-//       props: {},
-//       redirect: {
-//         destination: '/404',
-//         permanent: false,
-//       },
-//     }
-//   }
-// }
 
 export default Profile

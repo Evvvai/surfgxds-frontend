@@ -53,8 +53,10 @@
   padding: 10px 0;
 
   &Avatar {
-    height: 64px;
-    width: 64px;
+    min-height: 64px;
+    min-width: 64px;
+    max-height: 64px;
+    max-width: 64px;
     background-color: var(--background-color);
     border-radius: 50%;
     overflow: hidden;

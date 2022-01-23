@@ -5,7 +5,7 @@ import { useTypesSelector } from '../useTypesSelector'
 import { useCallback } from 'react'
 import { Maps } from '@types'
 import { clientHandle } from 'utils/graphql'
-import { TRICKS_STATS } from 'types/graphql/quary'
+import { TRICKS_STATS, TRIGGERS } from 'types/graphql/quary'
 
 // Trick Hook Selector / Dispatch
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -13,18 +13,22 @@ export const useTrick = () => {
   const dispatch = useDispatch()
 
   const { loadedTricks } = bindActionCreators(ActionCreators.actions, dispatch)
-  const { tricks } = useTypesSelector((state) => state.trick)
+  const { tricks, triggers } = useTypesSelector((state) => state.trick)
 
   const loadTricks = useCallback(
     async (map: Maps, steamid64: string | null) => {
-      const [data, errors] = await clientHandle(TRICKS_STATS, {
+      const [tricks, tricksErrors] = await clientHandle(TRICKS_STATS, {
         mapId: map.id,
         steamId: steamid64,
       })
-      loadedTricks(data)
+      const [triggers, triggersErrors] = await clientHandle(TRIGGERS, {
+        mapId: map.id,
+      })
+      loadedTricks({ tricks, triggers })
+      return { tricks, triggers }
     },
     []
   )
 
-  return { tricks, loadedTricks, loadTricks }
+  return { tricks, triggers, loadedTricks, loadTricks }
 }

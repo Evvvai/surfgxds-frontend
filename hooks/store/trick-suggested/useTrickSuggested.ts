@@ -52,7 +52,7 @@ export const useTrickSuggested = () => {
 
     const [myRates, myRatesErrors] = isLoggedIn
       ? await clientHandle(PLAYER_RATE, {
-          ids: tricksSuggested.map((val: TrickSuggested) => val.id),
+          ids: tricksSuggested?.map((val: TrickSuggested) => val.id),
         })
       : [[], []]
 

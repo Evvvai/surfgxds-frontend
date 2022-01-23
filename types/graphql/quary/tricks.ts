@@ -10,12 +10,6 @@ export const TRICK = gql`
       dateAdd
       authorId
       mapId
-      route {
-        id
-        name
-        alternativeName
-        src
-      }
     }
   }
 `
@@ -62,22 +56,7 @@ export const TRICKS_STATS = gql`
       completes
       myCompletes
       len
-      route {
-        id
-        name
-        alternativeName
-        src
-      }
-      author {
-        id
-        steamid
-        steamid64
-        nick
-        profileurl
-        avatarfull
-        avatarCustom
-        role
-      }
+      routeIds
     }
   }
 `

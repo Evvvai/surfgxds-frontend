@@ -29,7 +29,7 @@ export type ThemeVarious = 'system' | 'light' | 'dark' | 'blue'
 export const ThemeContext = createContext<ThemeValue | null>(null)
 
 export function ThemeProvider({ children }: ThemeProviderProps): JSX.Element {
-  const theme: ThemeVarious = browserStorage.getItem('theme') || 'system'
+  const theme: ThemeVarious = browserStorage.getItem('theme') || 'blue'
   const [themeContext, setThemeContext] = useState<ThemeVarious>(theme)
 
   useEffect(() => {

@@ -16,12 +16,13 @@ import parse from 'autosuggest-highlight/parse'
 import match from 'autosuggest-highlight/match'
 import cn from 'classnames'
 import { Trigger } from '@store'
+import { useTrick } from '../../../hooks/store/trick/useTrick'
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 export default function LeaderboardListHeader(): JSX.Element {
   const router = useRouter()
-  const { setRouteTrick, setTriggerTrick, route, trigger, triggers } =
-    useTrickEditor()
+  const { setRouteTrick, setTriggerTrick, route, trigger } = useTrickEditor()
+  const { triggers } = useTrick()
 
   const [term, setTerm] = useState<string>('')
   const [filteredTriggers, setFilteredTriggers] = useState<Trigger[]>([

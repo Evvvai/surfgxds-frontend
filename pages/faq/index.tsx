@@ -418,7 +418,7 @@ const teamText: any = {
 
 // Component
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-const Faq: FC<Props> = (props) => {
+const Faq = ({ hostStatus, developers }: Props) => {
   // Need create i18n
   const [state, setState] = useState<Language>(Language.EN)
   // const { setLanguage } = useSetApplication()
@@ -448,12 +448,12 @@ const Faq: FC<Props> = (props) => {
       {cmdText[state].text}
 
       <h4 className={styles.hr}> {hostText[state].title}</h4>
-      {hostText[state].text(props.hostStatus)}
+      {hostText[state].text(hostStatus)}
 
       <h4 className={styles.hr}> {teamText[state].title}</h4>
 
       <div className={styles.dev}>
-        {props.developers.map((val, key) => {
+        {developers.map((val, key) => {
           // console.log('val', val)
 
           return (
@@ -490,27 +490,65 @@ const Faq: FC<Props> = (props) => {
   )
 }
 
-export const getServerSideProps = async (ctx) => {
+Faq.getInitialProps = async ({ query, store, res }) => {
   try {
     const { data } = await axios.get<HostStatus>(
       `https://www.myarena.ru/api.php?query=status&token=` +
         process.env.NEXT_MY_ARENA_TOKEN
     )
 
-    const [players, errors] = await serverHandle(ctx, PLAYER_BY_STEAMIDS, {
+    const developers: Developers[] = [
+      {
+        steamid: '76561198177823310',
+        id: 54,
+        nickname: 'EVAI',
+
+        description: {
+          EN: 'Main developer of the plugin and website, and responsible for the database for the entire project',
+          RU: 'Основной разработчик плагина и веб-сайта, и также ответственный за базу данных всего проекта',
+        },
+      },
+      {
+        steamid: '76561198279987304',
+        id: 49,
+        nickname: 'Halisha',
+        description: {
+          EN: 'Game designer, projected and came up with the server and plugin concept',
+          RU: 'Геймдизайнер, спроектировал карту и придумал основную концепцию плагина',
+        },
+      },
+      {
+        steamid: '76561198120754101',
+        id: 73,
+        nickname: 'Parta',
+        description: {
+          EN: 'Head tester and trick creator',
+          RU: 'Главный тестер и создатель множества триков',
+        },
+      },
+      {
+        steamid: '76561198058934072',
+        id: 65,
+        nickname: 'ArturPertuh',
+        description: {
+          EN: 'Dxg eater, surf genius and discord lord',
+          RU: 'Рамповый владыка, дискордный повелитель и просто тригональный маестро',
+        },
+      },
+    ]
+
+    const [players, errors] = await serverHandle(res, PLAYER_BY_STEAMIDS, {
       steamids64: developers.map((val) => val.steamid),
     })
 
     return {
-      props: {
-        hostStatus: data,
-        developers: developers.map((val) => {
-          return {
-            ...val,
-            ...players.find((val1: Player) => val1.steamid64 === val.steamid),
-          }
-        }),
-      },
+      hostStatus: data,
+      developers: developers.map((val) => {
+        return {
+          ...val,
+          ...players.find((val1: Player) => val1.steamid64 === val.steamid),
+        }
+      }),
     }
   } catch (err) {
     // console.log('err', err)
@@ -519,43 +557,3 @@ export const getServerSideProps = async (ctx) => {
 }
 
 export default Faq
-
-const developers: Developers[] = [
-  {
-    steamid: '76561198177823310',
-    id: 54,
-    nickname: 'EVAI',
-
-    description: {
-      EN: 'Main developer of the plugin and website, and responsible for the database for the entire project',
-      RU: 'Основной разработчик плагина и веб-сайта, и также ответственный за базу данных всего проекта',
-    },
-  },
-  {
-    steamid: '76561198279987304',
-    id: 49,
-    nickname: 'Halisha',
-    description: {
-      EN: 'Game designer, projected and came up with the server and plugin concept',
-      RU: 'Геймдизайнер, спроектировал карту и придумал основную концепцию плагина',
-    },
-  },
-  {
-    steamid: '76561198120754101',
-    id: 73,
-    nickname: 'Parta',
-    description: {
-      EN: 'Head tester and trick creator',
-      RU: 'Главный тестер и создатель множества триков',
-    },
-  },
-  {
-    steamid: '76561198058934072',
-    id: 65,
-    nickname: 'ArturPertuh',
-    description: {
-      EN: 'Dxg eater, surf genius and discord lord',
-      RU: 'Рамповый владыка, дискордный повелитель и просто тригональный маестро',
-    },
-  },
-]

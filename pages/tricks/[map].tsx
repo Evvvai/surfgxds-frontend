@@ -25,6 +25,7 @@ import { Maps } from '@types'
 import { usePlayer } from '../../hooks/store/player/usePlayer'
 import MyInput from '../../components/UI/MyInput/MyInput.component'
 import { Trick } from '@store'
+import { TRIGGERS } from 'types/graphql/quary'
 
 interface Props {}
 
@@ -33,7 +34,7 @@ const Tricks = (props: Props) => {
   const router = useRouter()
 
   const { currentMap } = useApp()
-  const { tricks, loadTricks } = useTrick()
+  const { triggers, tricks, loadTricks } = useTrick()
   const { playerInfo } = usePlayer()
 
   const [term, setTerm] = useState<string>('')
@@ -86,7 +87,7 @@ const Tricks = (props: Props) => {
               <GiAbstract007 />
             </div>
           </div>
-          <TricksList tricks={filteredTricks} />
+          <TricksList tricks={filteredTricks} triggers={triggers} />
         </div>
       </section>
     </Fragment>
@@ -100,10 +101,13 @@ Tricks.getInitialProps = async ({ query, store, res }) => {
 
   if (!isLoad) {
     const currentMap = store.getState().app.currentMap
-    const [data, errors] = await serverHandle(res, TRICKS_STATS, {
+    const [triggers, triggersErrors] = await serverHandle(res, TRIGGERS, {
       mapId: currentMap.id,
-      steamId: store.getState().player.playerInfo.steamid64,
     })
-    store.dispatch(loadedTricks(data))
+    const [tricks, errorsTricks] = await serverHandle(res, TRICKS_STATS, {
+      mapId: currentMap.id,
+      steamId: store.getState().player.playerInfo?.steamid64,
+    })
+    store.dispatch(loadedTricks({ tricks, triggers }))
   }
 }

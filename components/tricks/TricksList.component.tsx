@@ -10,19 +10,20 @@ import TricksListHeader from './tricks-header/TricksListHeader.component'
 // Custom hooks
 
 // Utils
-import { Trick } from '@store'
+import { Trick, Trigger } from '@store'
 
 interface Props {
   tricks: Trick[]
+  triggers: Trigger[]
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////
-export default function TricksList(props: Props): JSX.Element {
+export default function TricksList({ tricks, triggers }: Props): JSX.Element {
   return (
     <div className={styles.list}>
       <TricksListHeader />
-      {props?.tricks?.map((trick) => {
-        return <TricksItem key={trick.id} trick={trick} />
+      {tricks?.map((trick) => {
+        return <TricksItem key={trick.id} trick={trick} triggers={triggers} />
       })}
     </div>
   )

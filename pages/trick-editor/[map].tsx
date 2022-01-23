@@ -15,13 +15,14 @@ import TrickEditorView from '../../components/trick-editor/trick-editor-view/Tri
 import { useApp } from 'hooks/store/app'
 
 // Utils
-import { TRIGGERS } from 'types/graphql/quary'
+import { TRICKS_STATS, TRIGGERS } from 'types/graphql/quary'
 import { Maps } from '@types'
 import { clientHandle, serverHandle } from 'utils/graphql'
 import { loadedTrickEditor } from 'stores/trick-editor.slice'
 import { changedMap } from 'stores/app.slice'
 import { useRouter } from 'next/router'
 import { useTrickEditor } from 'hooks/store/trick-editor'
+import { loadedTricks } from 'stores/trick.slice'
 
 interface Props {}
 
@@ -71,13 +72,21 @@ const Tricks = (props: Props) => {
 export default Tricks
 
 Tricks.getInitialProps = async ({ query, store, res }) => {
-  const isLoad = store.getState().trickEditor.isLoad
+  const isTriggerLoad = store.getState().trick.isLoad
+  const isEditorLoad = store.getState().trickEditor.isLoad
 
-  if (!isLoad) {
+  if (!isTriggerLoad) {
     const currentMap = store.getState().app.currentMap
-    const [data, errors] = await serverHandle(res, TRIGGERS, {
+    const [triggers, triggersErrors] = await serverHandle(res, TRIGGERS, {
       mapId: currentMap.id,
     })
-    store.dispatch(loadedTrickEditor(data))
+    const [tricks, errorsTricks] = await serverHandle(res, TRICKS_STATS, {
+      mapId: currentMap.id,
+      steamId: store.getState().player.playerInfo?.steamid64,
+    })
+    store.dispatch(loadedTricks({ tricks, triggers }))
+    store.dispatch(loadedTrickEditor(triggers))
+  } else if (!isEditorLoad) {
+    store.dispatch(loadedTrickEditor(store.getState().trick.triggers))
   }
 }

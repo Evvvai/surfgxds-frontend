@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useRef, useState } from 'react'
+import { Fragment, useEffect, useRef } from 'react'
 import Head from 'next/head'
 
 // Styles
@@ -12,7 +12,6 @@ import styles from '../../../styles/tricks/SuggestedTricks.module.scss'
 import SuggestedTricksList from '../../../components/suggested-tricks/SuggestedTricksList.component'
 
 // Custom hook
-import { usePlayer } from 'hooks/store/player'
 import { useApp } from 'hooks/store/app'
 
 // Utils
@@ -22,7 +21,6 @@ import { loadedTrickSuggested } from 'stores/trick-suggested.slice'
 import { PLAYER_RATE, SUGGESTED_TRICK } from 'types/graphql/quary'
 import { useTrickSuggested } from '../../../hooks/store/trick-suggested/useTrickSuggested'
 import { TrickSuggested } from '@store'
-import { parseCookies } from 'nookies'
 
 interface Props {}
 
@@ -30,22 +28,26 @@ interface Props {}
 const SuggestedTricks = (props: Props) => {
   const router = useRouter()
   const { currentMap } = useApp()
-  const { pagination, tricksSuggested, myRates } = useTrickSuggested()
-  const { playerInfo } = usePlayer()
+  const { pagination, tricksSuggested, myRates, changePagination } =
+    useTrickSuggested()
 
+  const mounted = useRef<boolean | null>(null)
   useEffect(() => {
+    !mounted.current ? (mounted.current = true) : changePagination(pagination)
+
     router.push(
       {
         pathname: '/tricks/suggested/' + currentMap.name,
         query: {
-          limit: pagination.limit.toString(),
-          offset: pagination.offset.toString(),
+          limit: pagination.limit?.toString() || 100,
+          offset: pagination.offset?.toString() || 0,
         },
       },
       undefined,
       { shallow: true }
     )
-  }, [currentMap])
+    window.scrollTo(0, 0)
+  }, [pagination, currentMap])
 
   return (
     <Fragment>
@@ -87,7 +89,7 @@ SuggestedTricks.getInitialProps = async ({ query, store, res }) => {
 
   const [myRates, myRatesErrors] = isLoggedIn
     ? await serverHandle(res, PLAYER_RATE, {
-        ids: tricksSuggested.map((val: TrickSuggested) => val.id),
+        ids: tricksSuggested?.map((val: TrickSuggested) => val.id),
       })
     : [[], []]
 
