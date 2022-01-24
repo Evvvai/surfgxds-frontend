@@ -91,19 +91,21 @@ export default function LeaderboardListHeader(): JSX.Element {
                         triggerItem.id === trigger.id,
                     })}
                   >
-                    {parts.map((part, key) => (
-                      <span
-                        key={key}
-                        style={{
-                          fontWeight: part.highlight ? 700 : 400,
-                          color: part.highlight
-                            ? 'var(--color-highlight)'
-                            : 'var(--color-text)',
-                        }}
-                      >
-                        {part.text}
-                      </span>
-                    ))}
+                    <div className={styles.listItemText}>
+                      {parts.map((part, key) => (
+                        <span
+                          key={key}
+                          style={{
+                            fontWeight: part.highlight ? 700 : 400,
+                            color: part.highlight
+                              ? 'var(--color-highlight)'
+                              : 'var(--color-text)',
+                          }}
+                        >
+                          {part.text}
+                        </span>
+                      ))}
+                    </div>
                     <img src={triggerItem?.src || ''} alt="none"></img>
                   </div>
                 </div>

@@ -3,6 +3,7 @@ import { Player } from './player'
 export interface TrickState {
   isLoad: boolean
   tricks: Trick[]
+  filteredTricks: Trick[]
   triggers: Trigger[]
 }
 
@@ -50,4 +51,14 @@ export interface Trigger {
   // triggersTimeSpeedTouches2: TriggersTimeSpeedTouch[]
   // suggestedRoutes: SuggestedRoutes[]
   // map: Maps
+}
+
+export interface TrickWR {
+  id: number
+  playerId: number
+  trickId: number
+  speed: number
+  time: number
+  dateAdd: Date
+  player: Player
 }

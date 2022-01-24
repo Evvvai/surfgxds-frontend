@@ -10,8 +10,9 @@ export interface Player {
   avatarfull: string
   avatarCustom: string
   dashboard: string
-  dateReg: Date
-  lastLogin: Date
+  dateJoined: Date | null
+  lastLoginSite: Date
+  lastLoginServer: Date
   role: Role
 }
 

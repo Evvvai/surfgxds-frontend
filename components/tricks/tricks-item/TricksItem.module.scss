@@ -188,7 +188,7 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     text-align: center;
-    padding: 1px;
+    padding: 2px;
     font-size: 1rem;
 
     @include tablet {
@@ -238,6 +238,89 @@
 
     @include mobile {
       font-size: 0.7rem;
+    }
+  }
+}
+
+.record {
+  animation: trick-item-load 0.7s ease-in;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 3px 0;
+
+  width: 100%;
+
+  &Item {
+    display: flex;
+    flex-direction: row;
+    margin-left: 5px;
+    padding: 5px;
+    width: 100%;
+
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  &Title {
+    width: 60px;
+    font-size: 1rem;
+  }
+
+  &Res {
+    margin-left: 10px;
+    font-size: 1rem;
+    font-weight: 900;
+    color: var(--color-text);
+  }
+
+  &Load {
+    color: rgb(255, 94, 66);
+    margin-left: 10px;
+  }
+
+  &Player {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    color: var(--color-trick-name);
+    gap: 5px;
+
+    cursor: pointer;
+
+    overflow: hidden;
+
+    img {
+      object-fit: cover;
+      border-radius: 50%;
+      overflow: hidden;
+
+      min-height: 20px;
+      min-width: 20px;
+      max-height: 20px;
+      max-width: 20px;
+
+      @include tablet {
+        min-height: 18px;
+        min-width: 18px;
+        max-height: 18px;
+        max-width: 18px;
+      }
+
+      @include mobile {
+        min-height: 12px;
+        min-width: 12px;
+        max-height: 12px;
+        max-width: 12px;
+      }
+    }
+
+    div {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 }

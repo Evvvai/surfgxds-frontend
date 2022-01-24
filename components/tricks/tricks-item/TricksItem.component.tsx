@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
 
 // Styles
 import styles from './TricksItem.module.scss'
@@ -10,7 +10,9 @@ import { usePlayer } from '../../../hooks/store/player/usePlayer'
 
 // Utils
 import cn from 'classnames'
-import { Trick, Trigger } from '@store'
+import { Trick, TrickWR, Trigger } from '@store'
+import { SWR, TWR } from 'types/graphql/quary'
+import { clientHandle } from 'utils/graphql'
 
 interface Props {
   trick: Trick
@@ -23,6 +25,10 @@ export default function TricksItem({ trick, triggers }: Props): JSX.Element {
 
   const [isActive, setIsActive] = useState<boolean>(false)
   const [route, setRoute] = useState<Trigger[] | null>(null)
+  const [wr, setWr] = useState<{ swr: TrickWR; twr: TrickWR }>({
+    swr: {} as TrickWR,
+    twr: {} as TrickWR,
+  })
 
   const handleClick = (trick: Trick) => (e: any) => {
     if (!route) {
@@ -33,8 +39,21 @@ export default function TricksItem({ trick, triggers }: Props): JSX.Element {
             (id) => triggers.find((val) => val.id === +id) as Trigger
           ) as Trigger[]
       )
+      loadWR(trick)
     }
     setIsActive(!isActive)
+  }
+
+  const loadWR = async (trick: Trick) => {
+    const [swr, swrErrors] = await clientHandle(SWR, {
+      trickId: trick.id,
+    })
+
+    const [twr, twrErrors] = await clientHandle(TWR, {
+      trickId: trick.id,
+    })
+
+    setWr({ swr, twr })
   }
 
   return (
@@ -97,6 +116,62 @@ export default function TricksItem({ trick, triggers }: Props): JSX.Element {
                 </div>
               )
             })}
+          </div>
+          <div className={styles.record}>
+            <div className={styles.recordItem}>
+              {wr.swr?.id ? (
+                <Fragment>
+                  <div className={styles.recordTitle}>Speed</div>
+                  <div className={styles.recordPlayer}>
+                    <img
+                      src={
+                        wr.swr.player.avatarCustom !== null
+                          ? wr.swr.player.avatarCustom
+                          : wr.swr.player.avatarfull
+                          ? wr.swr.player.avatarfull
+                          : process.env.AVATAR_NULL
+                      }
+                    ></img>
+                    <div>{wr.swr.player.nick}</div>
+                  </div>
+                  <div className={styles.recordRes}>{wr.swr.speed}</div>
+                </Fragment>
+              ) : (
+                <Fragment>
+                  <div className={styles.recordTitle}>Speed</div>
+                  <div className={styles.recordLoad}>
+                    data records Loading...
+                  </div>
+                </Fragment>
+              )}
+            </div>
+            <div className={styles.recordItem}>
+              {wr.twr?.id ? (
+                <Fragment>
+                  <div className={styles.recordTitle}>Time</div>
+                  <div className={styles.recordPlayer}>
+                    <img
+                      src={
+                        wr.twr.player.avatarCustom !== null
+                          ? wr.twr.player.avatarCustom
+                          : wr.twr.player.avatarfull
+                          ? wr.twr.player.avatarfull
+                          : process.env.AVATAR_NULL
+                      }
+                    ></img>
+                    <div>{wr.twr.player.nick}</div>
+                  </div>
+                  <div className={styles.recordRes}>{wr.twr.time}</div>
+                </Fragment>
+              ) : (
+                <Fragment>
+                  <div className={styles.recordTitle}>Time</div>
+                  <div className={styles.recordLoad}>
+                    data records Loading...
+                  </div>
+                </Fragment>
+              )}
+            </div>
           </div>
         </div>
       )}

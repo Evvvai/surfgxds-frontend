@@ -58,7 +58,7 @@ export default function LeaderboardItem(props: Props): JSX.Element {
         </div>
 
         <div className={cn(styles.item, styles.itemPc)}>
-          <div>{props.stats.completesPercent.substring(0, 5)}</div>
+          <div>{props.stats.completesPercent.toString().substring(0, 5)}</div>
         </div>
 
         <div className={cn(styles.item, styles.itemData)}>

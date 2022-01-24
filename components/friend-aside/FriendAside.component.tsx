@@ -158,7 +158,7 @@ const FriendAside: FC = () => {
                       {val.online ? (
                         <span>{val.status.action}</span>
                       ) : (
-                        <span>{dayjs(val.lastLogin).fromNow()}</span>
+                        <span>{dayjs(val.lastLoginSite).fromNow()}</span>
                       )}
                     </div>
                   </li>

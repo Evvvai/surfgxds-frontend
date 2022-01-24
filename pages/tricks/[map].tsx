@@ -34,19 +34,11 @@ const Tricks = (props: Props) => {
   const router = useRouter()
 
   const { currentMap } = useApp()
-  const { triggers, tricks, loadTricks } = useTrick()
+  const { filteringTriggers, triggers, tricks, filteredTricks, loadTricks } =
+    useTrick()
   const { playerInfo } = usePlayer()
 
   const [term, setTerm] = useState<string>('')
-  const [filteredTricks, setFilteredTricks] = useState<Trick[]>(tricks) // Need migrate into store
-
-  const filteringTriggers = (term: string) => {
-    setFilteredTricks(
-      [...tricks].filter((val) =>
-        val.name.toLowerCase().includes(term.toLowerCase())
-      )
-    )
-  }
 
   const mounted = useRef<boolean | null>(null)
   useEffect(() => {

@@ -6,14 +6,15 @@ import styles from '../../../styles/tricks/Triggers.module.scss'
 
 // Icons
 import { VscGitPullRequestCreate } from 'react-icons/vsc'
+import { FaEdit } from 'react-icons/fa'
 
 // Components
 import Modal from 'components/UI/Modal/Modal.component'
 import MyInput from '../../../components/UI/MyInput/MyInput.component'
 import CreateTrigger from '../../../components/triggers/create-trigger/CreateTrigger.component'
+import EditTrigger from '../../../components/triggers/edit-trigger/EditTrigger.component'
 
 // Custom hook
-import { useTrickEditor } from 'hooks/store/trick-editor'
 import { useApp } from 'hooks/store/app'
 import { useRouter } from 'next/router'
 
@@ -23,9 +24,6 @@ import match from 'autosuggest-highlight/match'
 import cn from 'classnames'
 import { serverHandle } from 'utils/graphql'
 import { TRICKS_STATS, TRIGGERS } from 'types/graphql/quary'
-import { Maps } from '@types'
-import { loadedTrickEditor } from 'stores/trick-editor.slice'
-import { changedMap } from 'stores/app.slice'
 import { Trigger } from '@store'
 import { Portal } from 'utils/portal'
 import { useTrick } from 'hooks/store/trick'
@@ -42,6 +40,8 @@ const Triggers = (props: Props) => {
   const { playerInfo } = usePlayer()
 
   const [isCreatorOpen, setIsCreatorOpen] = useState<boolean>(false)
+  const [isEditorOpen, setIsEditorOpen] = useState<boolean>(false)
+  const [selectedTrigger, setSelectedTrigger] = useState<Trigger>({} as Trigger)
 
   const [term, setTerm] = useState<string>('')
   const [filteredTriggers, setFilteredTriggers] = useState<Trigger[]>(triggers) // Need migrate into store
@@ -64,6 +64,10 @@ const Triggers = (props: Props) => {
       { shallow: true }
     )
   }, [currentMap])
+
+  useEffect(() => {
+    if (mounted.current) setFilteredTriggers(triggers)
+  }, [triggers])
 
   return (
     <Fragment>
@@ -131,12 +135,24 @@ const Triggers = (props: Props) => {
                         alt="none"
                       ></img>
                     </div>
+                    <FaEdit
+                      className={styles.edit}
+                      onClick={() => {
+                        setSelectedTrigger(triggerItem)
+                        setIsEditorOpen(true)
+                      }}
+                    />
                   </div>
                 </div>
               )
             })}
           </div>
         </div>
+        <Portal selector="#modal">
+          <Modal isOpen={isEditorOpen} setOpen={setIsEditorOpen}>
+            <EditTrigger trigger={selectedTrigger} />
+          </Modal>
+        </Portal>
       </section>
     </Fragment>
   )

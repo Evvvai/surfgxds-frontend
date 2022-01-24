@@ -45,13 +45,13 @@ export default function MyInput(props: Props): JSX.Element {
     debounceTime
   )
 
-  const dFunc = useCallback((term: string) => {
-    dFuncCallback(term)
-  }, [])
+  // const dFunc = useCallback((term: string) => {
+  //   dFuncCallback(term)
+  // }, [])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     props.model.setValue(e.target.value)
-    dFunc(e.target.value)
+    dFuncCallback(e.target.value)
   }
 
   return (

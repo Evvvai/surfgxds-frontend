@@ -1,10 +1,10 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useState, useEffect } from 'react'
 import cn from 'classnames'
 import LinearProgress from '@mui/material/LinearProgress'
 
 // Styles
 import stylesModal from '../../../styles/modal/ModalSkelet.module.scss'
-import styles from './CreateTrigger.module.scss'
+import styles from './EditTrigger.module.scss'
 const {
   paHeader,
   paHeaderTitle,
@@ -28,32 +28,45 @@ import { IoIosClose } from 'react-icons/io'
 
 // Custom Hooks
 import { usePlayer, usePlayerPreference } from 'hooks/store/player'
-import { useApp } from 'hooks/store/app'
+import { useApp } from '../../../hooks/store/app/useApp'
+import { useTrick } from 'hooks/store/trick'
 
 // Utils
 import { storage } from '../../../utils/firebase'
 import { uploadBytesResumable, ref, getDownloadURL } from '@firebase/storage'
 import MyInput from '../../UI/MyInput/MyInput.component'
+import { Trigger } from '@store'
 
 // Interface
 interface Props {
+  trigger: Trigger
   close?: any
   isOpen?: any
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-const CreateTrigger: FC<Props> = (props: Props) => {
+const EditTrigger: FC<Props> = (props: Props) => {
+  const { updatingTrigger } = useTrick()
   const { currentMap } = useApp()
   const { playerInfo } = usePlayer()
 
-  const [triggerName, setTriggerName] = useState<string>('')
+  useEffect(() => {
+    setImage({
+      image: null,
+      imageUrl: props.trigger?.src || null,
+    })
+    setTriggerName(props.trigger?.name)
+  }, [props.isOpen])
+
+  const [triggerName, setTriggerName] = useState<string>(props.trigger.name)
   const [image, setImage] = useState<any>({
     image: null,
-    imageUrl: null,
+    imageUrl: props.trigger.src,
   })
   const [progress, setProgress] = useState<any>(0)
 
   const handleChange = (e: any) => {
+    if (!e.target?.files[0]) return
     if (
       (e.target.files[0].type === 'image/gif' ||
         e.target.files[0].type === 'image/jpeg' ||
@@ -70,12 +83,11 @@ const CreateTrigger: FC<Props> = (props: Props) => {
   }
 
   const clickUploadHandler = (e: any) => {
-    return
-    if (playerInfo?.role !== 'admin') return
+    // if (playerInfo?.role !== 'admin') return
 
     const storageRef = ref(
       storage,
-      `triggers/${currentMap.name}/${'props.trigger.id'.toString()}`
+      `triggers/${currentMap.name}/${props.trigger.id.toString()}`
     )
     const uploadTask = uploadBytesResumable(storageRef, image.image)
 
@@ -95,7 +107,7 @@ const CreateTrigger: FC<Props> = (props: Props) => {
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           props.close()
-          /* Save data */
+          updatingTrigger(props.trigger.name, props.trigger.id, downloadURL)
         })
       }
     )
@@ -200,4 +212,4 @@ const CreateTrigger: FC<Props> = (props: Props) => {
   )
 }
 
-export default React.memo(CreateTrigger)
+export default React.memo(EditTrigger)

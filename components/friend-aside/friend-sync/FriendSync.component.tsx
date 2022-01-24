@@ -113,7 +113,7 @@ export default function FriendSync(props: Props): JSX.Element {
                           {val.online ? (
                             <span>{val.status.action}</span>
                           ) : (
-                            <span>{dayjs(val.lastLogin).fromNow()}</span>
+                            <span>{dayjs(val.lastLoginSite).fromNow()}</span>
                           )}
                         </div>
                       </li>
