@@ -13,6 +13,7 @@ import Modal from 'components/UI/Modal/Modal.component'
 import MyInput from '../../../components/UI/MyInput/MyInput.component'
 import CreateTrigger from '../../../components/triggers/create-trigger/CreateTrigger.component'
 import EditTrigger from '../../../components/triggers/edit-trigger/EditTrigger.component'
+import TriggerImage from '../../../components/UI/MyImage/TriggerImage/TriggerImage.component'
 
 // Custom hook
 import { useApp } from 'hooks/store/app'
@@ -72,7 +73,7 @@ const Triggers = (props: Props) => {
   return (
     <Fragment>
       <Head>
-        <title>SurfGxds</title>
+        <title>{currentMap.alternativeName + '| Triggers'}</title>
         <meta name="description" property="og:description" content="SurfGxds" />
         <meta name="og:title" content="SurfGxds" />
         <meta name="robots" content="INDEX,FOLLOW" />
@@ -129,11 +130,7 @@ const Triggers = (props: Props) => {
                       ))}
                     </div>
                     <div className={styles.listItemImg}>
-                      <img
-                        className={styles.listItemImgInner}
-                        src={triggerItem?.src || ''}
-                        alt="none"
-                      ></img>
+                      <TriggerImage photo={{ ...triggerItem }} />
                     </div>
                     <FaEdit
                       className={styles.edit}

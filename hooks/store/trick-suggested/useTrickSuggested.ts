@@ -40,24 +40,27 @@ export const useTrickSuggested = () => {
     (state) => state.trickSuggested
   )
 
-  const changePagination = useCallback(async (pagination: Pagination) => {
-    const [tricksSuggested, tricksSuggestedErrors] = await clientHandle(
-      SUGGESTED_TRICK,
-      {
-        mapId: currentMap?.id,
-        limit: pagination.limit,
-        offset: pagination.offset,
-      }
-    )
+  const changePagination = useCallback(
+    async (pagination: Pagination) => {
+      const [tricksSuggested, tricksSuggestedErrors] = await clientHandle(
+        SUGGESTED_TRICK,
+        {
+          mapId: currentMap?.id,
+          limit: pagination.limit,
+          offset: pagination.offset,
+        }
+      )
 
-    const [myRates, myRatesErrors] = isLoggedIn
-      ? await clientHandle(PLAYER_RATE, {
-          ids: tricksSuggested?.map((val: TrickSuggested) => val.id),
-        })
-      : [[], []]
+      const [myRates, myRatesErrors] = isLoggedIn
+        ? await clientHandle(PLAYER_RATE, {
+            ids: tricksSuggested?.map((val: TrickSuggested) => val.id),
+          })
+        : [[], []]
 
-    loadedTrickSuggested({ tricksSuggested, myRates, pagination })
-  }, [])
+      loadedTrickSuggested({ tricksSuggested, myRates, pagination })
+    },
+    [currentMap]
+  )
 
   const changeMyRate = useCallback(
     async (trick: TrickSuggested, rate: RateType) => {

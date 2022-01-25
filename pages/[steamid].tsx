@@ -35,6 +35,7 @@ import { Portal } from 'utils/portal'
 import Modal from 'components/UI/Modal/Modal.component'
 import { Player } from '@store'
 import { useRouter } from 'next/dist/client/router'
+import Head from 'next/head'
 
 interface Props {
   playerData: Player
@@ -50,7 +51,13 @@ const Profile = ({ playerData }: Props) => {
 
   return (
     <>
-      {/* <Head></Head> */}
+      <Head>
+        <title>{playerData.nick}</title>
+        <meta name="description" property="og:description" content="SurfGxds" />
+        <meta name="og:title" content="SurfGxds" />
+        <meta name="robots" content="INDEX,FOLLOW" />
+        <link rel="canonical" />
+      </Head>
       <div className={profile}>
         <div className={Dashboard}>
           <img

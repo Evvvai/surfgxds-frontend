@@ -4,6 +4,8 @@ import React, { Fragment, useState, useEffect } from 'react'
 import styles from './TricksItem.module.scss'
 
 // Components
+import TriggerImage from '../../UI/MyImage/TriggerImage/TriggerImage.component'
+import PlayerEmbend from '../../UI/PlayerEmbend/PlayerEmbend.component'
 
 // Custom hooks
 import { usePlayer } from '../../../hooks/store/player/usePlayer'
@@ -13,6 +15,7 @@ import cn from 'classnames'
 import { Trick, TrickWR, Trigger } from '@store'
 import { SWR, TWR } from 'types/graphql/quary'
 import { clientHandle } from 'utils/graphql'
+import Link from 'next/link'
 
 interface Props {
   trick: Trick
@@ -25,9 +28,14 @@ export default function TricksItem({ trick, triggers }: Props): JSX.Element {
 
   const [isActive, setIsActive] = useState<boolean>(false)
   const [route, setRoute] = useState<Trigger[] | null>(null)
-  const [wr, setWr] = useState<{ swr: TrickWR; twr: TrickWR }>({
+  const [wr, setWr] = useState<{
+    swr: TrickWR
+    twr: TrickWR
+    isLoading: boolean
+  }>({
     swr: {} as TrickWR,
     twr: {} as TrickWR,
+    isLoading: true,
   })
 
   const handleClick = (trick: Trick) => (e: any) => {
@@ -53,7 +61,11 @@ export default function TricksItem({ trick, triggers }: Props): JSX.Element {
       trickId: trick.id,
     })
 
-    setWr({ swr, twr })
+    setWr({
+      swr: { ...swr, isErrors: swr === null },
+      twr: { ...twr, isErrors: twr === null },
+      isLoading: false,
+    })
   }
 
   return (
@@ -102,14 +114,14 @@ export default function TricksItem({ trick, triggers }: Props): JSX.Element {
           <div className={styles.route}>
             {route.map((trigger, key) => {
               return (
-                <div key={key} className={styles.routeItem}>
+                <div
+                  key={trick.id + '|' + trigger.id}
+                  className={styles.routeItem}
+                >
                   <div className={styles.routeContent}>
                     <div className={styles.routeTitle}>{trigger.name}</div>
                     <div className={styles.routeImg}>
-                      <img
-                        src={trigger.src || ''}
-                        className={styles.routeImgInner}
-                      ></img>
+                      <TriggerImage photo={{ ...trigger }} />
                     </div>
                     <div className={styles.routeCount}>{key + 1}</div>
                   </div>
@@ -117,61 +129,56 @@ export default function TricksItem({ trick, triggers }: Props): JSX.Element {
               )
             })}
           </div>
-          <div className={styles.record}>
-            <div className={styles.recordItem}>
-              {wr.swr?.id ? (
-                <Fragment>
-                  <div className={styles.recordTitle}>Speed</div>
-                  <div className={styles.recordPlayer}>
-                    <img
-                      src={
-                        wr.swr.player.avatarCustom !== null
-                          ? wr.swr.player.avatarCustom
-                          : wr.swr.player.avatarfull
-                          ? wr.swr.player.avatarfull
-                          : process.env.AVATAR_NULL
-                      }
-                    ></img>
-                    <div>{wr.swr.player.nick}</div>
-                  </div>
-                  <div className={styles.recordRes}>{wr.swr.speed}</div>
-                </Fragment>
-              ) : (
-                <Fragment>
-                  <div className={styles.recordTitle}>Speed</div>
-                  <div className={styles.recordLoad}>
-                    data records Loading...
-                  </div>
-                </Fragment>
-              )}
+          <div>
+            <div className={styles.record}>
+              <div className={styles.recordItem}>
+                {!wr.isLoading ? (
+                  wr.swr.isErrors ? (
+                    <Fragment>
+                      <div className={styles.recordTitle}>Speed</div>
+                      <div className={styles.recordNone}>none</div>
+                    </Fragment>
+                  ) : (
+                    <Fragment>
+                      <div className={styles.recordTitle}>Speed</div>
+                      <PlayerEmbend player={wr.swr.player} />
+                      <div className={styles.recordRes}>{wr.swr.speed}</div>
+                    </Fragment>
+                  )
+                ) : (
+                  <Fragment>
+                    <div className={styles.recordTitle}>Speed</div>
+                    <div className={styles.recordLoad}>
+                      data records Loading...
+                    </div>
+                  </Fragment>
+                )}
+              </div>
+              <div className={styles.recordItem}>
+                {!wr.isLoading ? (
+                  wr.twr.isErrors ? (
+                    <Fragment>
+                      <div className={styles.recordTitle}>Time</div>
+                      <div className={styles.recordNone}>none</div>
+                    </Fragment>
+                  ) : (
+                    <Fragment>
+                      <div className={styles.recordTitle}>Time</div>
+                      <PlayerEmbend player={wr.twr.player} />
+                      <div className={styles.recordRes}>{wr.twr.time}</div>
+                    </Fragment>
+                  )
+                ) : (
+                  <Fragment>
+                    <div className={styles.recordTitle}>Time</div>
+                    <div className={styles.recordLoad}>
+                      data records Loading...
+                    </div>
+                  </Fragment>
+                )}
+              </div>
             </div>
-            <div className={styles.recordItem}>
-              {wr.twr?.id ? (
-                <Fragment>
-                  <div className={styles.recordTitle}>Time</div>
-                  <div className={styles.recordPlayer}>
-                    <img
-                      src={
-                        wr.twr.player.avatarCustom !== null
-                          ? wr.twr.player.avatarCustom
-                          : wr.twr.player.avatarfull
-                          ? wr.twr.player.avatarfull
-                          : process.env.AVATAR_NULL
-                      }
-                    ></img>
-                    <div>{wr.twr.player.nick}</div>
-                  </div>
-                  <div className={styles.recordRes}>{wr.twr.time}</div>
-                </Fragment>
-              ) : (
-                <Fragment>
-                  <div className={styles.recordTitle}>Time</div>
-                  <div className={styles.recordLoad}>
-                    data records Loading...
-                  </div>
-                </Fragment>
-              )}
-            </div>
+            <div>{/* Here must be author */}</div>
           </div>
         </div>
       )}

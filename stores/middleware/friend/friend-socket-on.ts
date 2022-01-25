@@ -14,7 +14,6 @@ export const friendSocketOn = (socket: any, dispatch: Dispatch<AnyAction>) => {
       type: 'friend/friendOnline',
       payload: friendId,
     })
-    console.log('friendOnline')
   })
   socket.on('friend/offline', (friendId: number) => {
     dispatch({

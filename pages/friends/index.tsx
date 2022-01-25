@@ -51,7 +51,7 @@ const Friends = (props: Props) => {
   return (
     <Fragment>
       <Head>
-        <title>SurfGxds</title>
+        <title>SurfGxds friends</title>
         <meta name="description" property="og:description" content="SurfGxds" />
         <meta name="og:title" content="SurfGxds" />
         <meta name="robots" content="INDEX,FOLLOW" />

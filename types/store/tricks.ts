@@ -61,4 +61,6 @@ export interface TrickWR {
   time: number
   dateAdd: Date
   player: Player
+
+  isErrors: boolean
 }

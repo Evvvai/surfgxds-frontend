@@ -1,9 +1,10 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 
 // Styles
 import styles from './TrickEditorSelector.module.scss'
 
 // Components
+import TriggerImage from '../../UI/MyImage/TriggerImage/TriggerImage.component'
 
 // Custom hooks
 import { usePlayer } from '../../../hooks/store/player/usePlayer'
@@ -29,6 +30,11 @@ export default function LeaderboardListHeader(): JSX.Element {
     ...triggers,
   ])
   const [isSuggestOpen, setIsSuggestOpen] = useState<boolean>(false)
+
+  // Sync with map switch
+  useEffect(() => {
+    setFilteredTriggers(triggers)
+  }, [triggers])
 
   const listRef = useRef(null)
   const inputRef = useRef(null)
@@ -106,7 +112,7 @@ export default function LeaderboardListHeader(): JSX.Element {
                         </span>
                       ))}
                     </div>
-                    <img src={triggerItem?.src || ''} alt="none"></img>
+                    <TriggerImage photo={{ ...triggerItem }} />
                   </div>
                 </div>
               )

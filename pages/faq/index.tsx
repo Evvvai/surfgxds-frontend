@@ -11,6 +11,7 @@ import Link from 'next/link'
 import { serverHandle } from 'utils/graphql'
 import { PLAYER_BY_STEAMIDS } from 'types/graphql/quary'
 import { Player } from '@store'
+import Head from 'next/head'
 // import { LanguageContext } from '../App'
 
 interface Developers extends Partial<Player> {
@@ -425,10 +426,18 @@ const Faq = ({ hostStatus, developers }: Props) => {
   // const { language } = useApplication()
 
   return (
-    <section className={styles.faq}>
-      <h5 className={styles.header}>FAQ</h5>
+    <>
+      <Head>
+        <title>SurfGxds faq</title>
+        <meta name="description" property="og:description" content="SurfGxds" />
+        <meta name="og:title" content="SurfGxds" />
+        <meta name="robots" content="INDEX,FOLLOW" />
+        <link rel="canonical" />
+      </Head>
+      <section className={styles.faq}>
+        <h5 className={styles.header}>FAQ</h5>
 
-      {/*  <h4 className={styles.hr}>
+        {/*  <h4 className={styles.hr}>
       <TopTooltip title={'Change Language'} className="faq-language">
           <div
             onClick={(e) => {
@@ -441,52 +450,53 @@ const Faq = ({ hostStatus, developers }: Props) => {
         </TopTooltip> 
       </h4>*/}
 
-      <h4 className={styles.hr}> {aboutText[state].title}</h4>
-      {aboutText[state].text}
+        <h4 className={styles.hr}> {aboutText[state].title}</h4>
+        {aboutText[state].text}
 
-      <h4 className={styles.hr}> {cmdText[state].title}</h4>
-      {cmdText[state].text}
+        <h4 className={styles.hr}> {cmdText[state].title}</h4>
+        {cmdText[state].text}
 
-      <h4 className={styles.hr}> {hostText[state].title}</h4>
-      {hostText[state].text(hostStatus)}
+        <h4 className={styles.hr}> {hostText[state].title}</h4>
+        {hostText[state].text(hostStatus)}
 
-      <h4 className={styles.hr}> {teamText[state].title}</h4>
+        <h4 className={styles.hr}> {teamText[state].title}</h4>
 
-      <div className={styles.dev}>
-        {developers.map((val, key) => {
-          // console.log('val', val)
+        <div className={styles.dev}>
+          {developers.map((val, key) => {
+            // console.log('val', val)
 
-          return (
-            <div key={key}>
-              <div className={styles.embend}>
-                <div className={styles.embendAvatar}>
-                  <img
-                    src={
-                      val?.avatarCustom
-                        ? val?.avatarCustom
-                        : val?.avatarfull
-                        ? val?.avatarfull
-                        : process.env.AVATAR_NULL
-                    }
-                    alt="none avatar"
-                  ></img>
-                </div>
-                <div className={styles.embendBody}>
-                  <Link href={'/' + val.steamid}>
-                    <a className={styles.embendNick}>{val.nickname}</a>
-                  </Link>
-                  <p className={styles.embendDescription}>
-                    {val.description[state]}
-                  </p>
+            return (
+              <div key={key}>
+                <div className={styles.embend}>
+                  <div className={styles.embendAvatar}>
+                    <img
+                      src={
+                        val?.avatarCustom
+                          ? val?.avatarCustom
+                          : val?.avatarfull
+                          ? val?.avatarfull
+                          : process.env.AVATAR_NULL
+                      }
+                      alt="none avatar"
+                    ></img>
+                  </div>
+                  <div className={styles.embendBody}>
+                    <Link href={'/' + val.steamid}>
+                      <a className={styles.embendNick}>{val.nickname}</a>
+                    </Link>
+                    <p className={styles.embendDescription}>
+                      {val.description[state]}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-          )
-        })}
-      </div>
-      {/* <h4 className="faq-hr">Q & A</h4>
+            )
+          })}
+        </div>
+        {/* <h4 className="faq-hr">Q & A</h4>
       <div>empty</div> */}
-    </section>
+      </section>
+    </>
   )
 }
 

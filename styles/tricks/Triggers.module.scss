@@ -109,17 +109,18 @@
       height: 250px;
       cursor: pointer;
 
-      &Inner {
-        height: 100%;
-        overflow: hidden;
-        object-fit: cover;
+      // &Inner {
+      //   height: 100%;
+      //   overflow: hidden;
+      //   object-fit: cover;
+      //   border-radius: 5px;
 
-        &:hover {
-          transform: scale(1.1);
-          transition: all 0.2s ease-in;
-        }
-        transition: all 0.2s ease-out;
-      }
+      //   &:hover {
+      //     transform: scale(1.1);
+      //     transition: all 0.2s ease-in;
+      //   }
+      //   transition: all 0.2s ease-out;
+      // }
 
       @include tablet {
         height: 190px;

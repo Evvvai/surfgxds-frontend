@@ -16,15 +16,35 @@ export default function Footer(): JSX.Element {
       {/* <Icon asset={'FooterWave'} /> */}
       <FooterWaveIcon />
       <div className={footerContent}>
-        <a className={footerItem}>Company</a>
+        <a href="https://discord.gg/nybZnuAsze" className={footerItem}>
+          Discord
+        </a>
         <span>|</span>
-        <a className={footerItem}>Marketing Services</a>
+        <a href="https://vk.com/surfgxds" className={footerItem}>
+          Vk
+        </a>
         <span>|</span>
-        <a className={footerItem}>Support</a>
+        <a href="https://github.com/Evvvai" className={footerItem}>
+          GitHub
+        </a>
         <span>|</span>
-        <a className={footerItem}>Terms of Service</a>
+        <a href="steam://connect/62.122.215.124:27015" className={footerItem}>
+          Server
+        </a>
         <span>|</span>
-        <a className={footerItem}>Privacy Policy</a>
+        <a
+          href="https://www.youtube.com/channel/UCu-39MYQr8I7smURAUeYchw"
+          className={footerItem}
+        >
+          YouTube
+        </a>
+        <span>|</span>
+        <a
+          href="https://steamcommunity.com/id/mycecile/"
+          className={footerItem}
+        >
+          TrickManager[srfgxds]
+        </a>
       </div>
     </footer>
   )

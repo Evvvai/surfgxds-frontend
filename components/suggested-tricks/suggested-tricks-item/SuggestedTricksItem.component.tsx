@@ -13,6 +13,7 @@ import { FiEdit } from 'react-icons/fi'
 
 // Components
 import MyImage from '../../UI/MyImage/MyImage.component'
+import PlayerEmbend from '../../UI/PlayerEmbend/PlayerEmbend.component'
 
 // Custom hooks
 import { usePlayer } from '../../../hooks/store/player/usePlayer'
@@ -24,6 +25,7 @@ import cn from 'classnames'
 import dayjs from 'dayjs'
 import { Role, TrickSuggested, TrickSuggestedStatus } from '@store'
 import { TrickSuggestedRates } from '../../../types/store/trick-suggested'
+import TriggerImage from '../../UI/MyImage/TriggerImage/TriggerImage.component'
 
 export type RateType = 'up' | 'down'
 
@@ -95,17 +97,7 @@ export default function SuggestedTricksItem(props: Props): JSX.Element {
         </div>
 
         <div className={cn(styles.item, styles.itemAuthor)}>
-          <img
-            className={styles.itemAuthorAvatar}
-            src={
-              props.trick.author.avatarCustom !== null
-                ? props.trick.author.avatarCustom
-                : props.trick.author.avatarfull
-                ? props.trick.author.avatarfull
-                : process.env.AVATAR_NULL
-            }
-          ></img>
-          <div className={styles.itemAuthorNick}>{props.trick.author.nick}</div>
+          <PlayerEmbend player={props.trick.author} />
         </div>
 
         <div className={cn(styles.item, styles.itemRate)}>
@@ -123,21 +115,14 @@ export default function SuggestedTricksItem(props: Props): JSX.Element {
           <div className={styles.route}>
             {props.trick.route.map((trigger, key) => {
               return (
-                <div key={key} className={styles.routeItem}>
+                <div
+                  key={props.trick.id + '|' + trigger.id}
+                  className={styles.routeItem}
+                >
                   <div className={styles.routeContent}>
                     <div className={styles.routeTitle}>{trigger.name}</div>
                     <div className={styles.routeImg}>
-                      <img
-                        src={trigger.src || ''}
-                        className={styles.routeImgInner}
-                      ></img>
-                      {/* 
-                      <MyImage
-                        photo={{
-                          src: trigger.src || '',
-                        }}
-                        style={styles.routeImgInner}
-                      /> */}
+                      <TriggerImage photo={{ ...trigger }} />
                     </div>
                     <div className={styles.routeCount}>{key + 1}</div>
                   </div>

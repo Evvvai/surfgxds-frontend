@@ -178,10 +178,11 @@
       background-color: var(--color-background-modal-content);
       position: relative;
       z-index: 30;
+      padding: 2px;
 
       span {
         font-size: 1rem;
-        color: var(--color-text);
+        color: var(--color-text-invert);
       }
     }
   }

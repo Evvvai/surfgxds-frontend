@@ -33,6 +33,8 @@ module.exports = {
       'https://firebasestorage.googleapis.com/v0/b/csleague-2ecff.appspot.com/o/etc%2Fnot_invites.gif?alt=media&token=1b1d83e1-f6f4-4a48-85cb-5520663ced0a',
     NOT_PERMISSION:
       'https://image.myanimelist.net/ui/9FMmrCQC46J-Q4IkG6w8PBvPOFvxngba4X1fu-l1uTkq2PvdpLk_ALPmLy6Tx7hy',
+    NOT_TRIGGER:
+      'https://firebasestorage.googleapis.com/v0/b/surfgxds.appspot.com/o/triggers%2FtriggerNone.gif?alt=media&token=82bf1192-4985-4fb9-b912-7c2415e8f677',
     NEXT_BACKEND_URL: process.env.NEXT_BACKEND_URL,
     DASHBOARD_NULL: dashboardNull,
     AVATAR_NULL: avatarNull,

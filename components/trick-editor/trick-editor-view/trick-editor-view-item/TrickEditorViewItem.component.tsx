@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import styles from './TrickEditorViewItem.module.scss'
 
 // Components
+import TriggerImage from '../../../UI/MyImage/TriggerImage/TriggerImage.component'
 
 // Custom hooks
 import { useTrickEditor } from 'hooks/store/trick-editor'
@@ -111,7 +112,7 @@ export default function TrickEditorViewItem(props: Props): JSX.Element {
     >
       <div className={styles.title}>{props.trigger.name}</div>
       <div className={styles.img}>
-        <img src={props.trigger.src || ''} alt="none"></img>
+        <TriggerImage photo={{ ...props.trigger }} />
       </div>
       <div className={styles.count}>{props.index + 1}</div>
       {/* <SpeedTimeStats load={true} routeStats={props.routeStats} /> */}

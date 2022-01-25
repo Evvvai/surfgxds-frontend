@@ -48,7 +48,7 @@ const Tricks = (props: Props) => {
   return (
     <Fragment>
       <Head>
-        <title>SurfGxds</title>
+        <title>{currentMap.alternativeName + '| Trick editor'}</title>
         <meta name="description" property="og:description" content="SurfGxds" />
         <meta name="og:title" content="SurfGxds" />
         <meta name="robots" content="INDEX,FOLLOW" />

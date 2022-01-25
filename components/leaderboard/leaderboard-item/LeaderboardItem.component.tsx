@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import styles from './LeaderboardItem.module.scss'
 
 // Components
+import PlayerEmbend from '../../UI/PlayerEmbend/PlayerEmbend.component'
 
 // Custom hooks
 import { usePlayer } from 'hooks/store/player'
@@ -40,16 +41,7 @@ export default function LeaderboardItem(props: Props): JSX.Element {
           }}
           className={cn(styles.item, styles.itemPlayer)}
         >
-          <img
-            src={
-              props.stats.player.avatarCustom !== null
-                ? props.stats.player.avatarCustom
-                : props.stats.player.avatarfull
-                ? props.stats.player.avatarfull
-                : process.env.AVATAR_NULL
-            }
-          ></img>
-          <div>{props.stats.player.nick}</div>
+          <PlayerEmbend player={props.stats.player} />
           {/* <div>{changeDecode(props.stats.player.nick)}</div> */}
         </div>
 
@@ -62,19 +54,19 @@ export default function LeaderboardItem(props: Props): JSX.Element {
         </div>
 
         <div className={cn(styles.item, styles.itemData)}>
+          <div>{parseDigit(props.stats.ap.toString())}</div>
+        </div>
+
+        <div className={cn(styles.item, styles.itemData)}>
+          <div>{parseDigit(props.stats.up.toString())}</div>
+        </div>
+
+        <div className={cn(styles.item, styles.itemData)}>
           <div>{parseDigit(props.stats.ac.toString())}</div>
         </div>
 
         <div className={cn(styles.item, styles.itemData)}>
-          <div>{parseDigit(props.stats.acPlace.toString())}</div>
-        </div>
-
-        <div className={cn(styles.item, styles.itemData)}>
           <div>{parseDigit(props.stats.uc.toString())}</div>
-        </div>
-
-        <div className={cn(styles.item, styles.itemData)}>
-          <div>{parseDigit(props.stats.ucPlace.toString())}</div>
         </div>
       </div>
     </div>

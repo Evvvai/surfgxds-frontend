@@ -88,10 +88,11 @@ MyApp.getInitialProps = wrapper.getInitialAppProps(
         if (player && !playerErrors) {
           store.dispatch(setPlayerSetting(player))
         }
+
         store.dispatch(
           appLoaded({
             availableMaps: maps,
-            currentMap: maps.find((val) => val.id === map) || maps[0],
+            currentMap: maps.find((val) => val.id === +map) || maps[0],
           })
         )
       }
