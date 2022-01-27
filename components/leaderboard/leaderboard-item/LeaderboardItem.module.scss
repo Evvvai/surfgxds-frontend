@@ -12,13 +12,28 @@
   > :hover {
     background-color: var(--color-background-content);
     border-radius: 5px;
+
+    .item {
+      &Data {
+        :first-child {
+          opacity: 1;
+          transform: translateX(0px);
+
+          transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+      }
+    }
   }
 }
 
 .item {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 
   font-size: 0.9rem;
   font-weight: 700;
@@ -30,13 +45,13 @@
   }
 
   @include mobile {
-    font-size: 0.55rem;
-    padding: 2px;
+    font-size: 0.38rem;
+    padding: 1px;
   }
 
   &Ind {
     width: 5%;
-    min-width: 20px;
+    min-width: 15px;
     max-width: 35px;
     align-items: center;
     justify-content: center;
@@ -61,35 +76,8 @@
 
     overflow: hidden;
 
-    img {
-      object-fit: cover;
-      border-radius: 50%;
-      overflow: hidden;
-
-      min-height: 20px;
-      min-width: 20px;
-      max-height: 20px;
-      max-width: 20px;
-
-      @include tablet {
-        min-height: 18px;
-        min-width: 18px;
-        max-height: 18px;
-        max-width: 18px;
-      }
-
-      @include mobile {
-        min-height: 12px;
-        min-width: 12px;
-        max-height: 12px;
-        max-width: 12px;
-      }
-    }
-
-    div {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+    @include mobile {
+      width: 25%;
     }
   }
 
@@ -110,6 +98,32 @@
     width: 10%;
     align-items: flex-end;
     color: var(--color-sub-text);
+    justify-content: flex-end;
+
+    :first-child {
+      opacity: 0;
+      transform: translateX(-10px);
+      padding-right: 5px;
+      color: var(--color-highlight);
+      font-size: 0.8rem;
+      font-weight: 700;
+
+      transition: all 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+
+      @include tablet {
+        font-size: 0.6rem;
+        padding-right: 3px;
+      }
+
+      @include mobile {
+        font-size: 0.4rem;
+        padding-right: 1px;
+      }
+    }
+
+    @include mobile {
+      width: 10%;
+    }
   }
 }
 

@@ -54,18 +54,22 @@ export default function LeaderboardItem(props: Props): JSX.Element {
         </div>
 
         <div className={cn(styles.item, styles.itemData)}>
+          <div>{parseDigit(props.stats.apPlace.toString())}</div>
           <div>{parseDigit(props.stats.ap.toString())}</div>
         </div>
 
         <div className={cn(styles.item, styles.itemData)}>
+          <div>{parseDigit(props.stats.upPlace.toString())}</div>
           <div>{parseDigit(props.stats.up.toString())}</div>
         </div>
 
         <div className={cn(styles.item, styles.itemData)}>
+          <div>{parseDigit(props.stats.acPlace.toString())}</div>
           <div>{parseDigit(props.stats.ac.toString())}</div>
         </div>
 
         <div className={cn(styles.item, styles.itemData)}>
+          <div>{parseDigit(props.stats.ucPlace.toString())}</div>
           <div>{parseDigit(props.stats.uc.toString())}</div>
         </div>
       </div>

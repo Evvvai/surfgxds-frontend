@@ -25,13 +25,13 @@
   }
 
   @include mobile {
-    font-size: 0.42rem;
+    font-size: 0.38rem;
     padding: 1px;
   }
 
   &Ind {
     width: 5%;
-    min-width: 20px;
+    min-width: 15px;
     max-width: 40px;
     align-items: center;
     justify-content: center;
@@ -39,6 +39,10 @@
 
   &Player {
     width: 35%;
+
+    @include mobile {
+      width: 25%;
+    }
 
     color: var(--color-trick-name);
   }
@@ -65,7 +69,7 @@
       }
 
       @include mobile {
-        font-size: 0.4rem;
+        font-size: 0.38rem;
       }
     }
   }
@@ -84,7 +88,7 @@
       }
 
       @include mobile {
-        font-size: 0.4rem;
+        font-size: 0.38rem;
       }
     }
   }
