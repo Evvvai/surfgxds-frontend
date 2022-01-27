@@ -1,5 +1,5 @@
 module.exports = {
-  siteUrl: process.env.SITE_URL || 'https://surfgods.com',
+  siteUrl: process.env.NEXT_SITE_URL || 'https://surfgxds.xyz',
   changefreq: 'daily',
   priority: 0.7,
   sitemapSize: 5000,
