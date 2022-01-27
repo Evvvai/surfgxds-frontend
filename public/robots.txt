@@ -2,13 +2,8 @@
 User-agent: *
 Allow: /
 
-# test-bot
-User-agent: test-bot
-Allow: /path
-Allow: /path-2
-
 # Host
-Host: https://surfgods.com
+Host: https://surfgxds.xyz
 
 # Sitemaps
-Sitemap: https://surfgods.com/sitemap.xml
+Sitemap: https://surfgxds.xyz/sitemap.xml

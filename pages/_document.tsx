@@ -17,6 +17,7 @@ export default class Document extends SourceDocument {
             href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Roboto+Slab:wght@300;400;500&display=swap"
             rel="stylesheet"
           ></link>
+          <link rel="icon" href="%PUBLIC_URL%/surfgxds.ico" />
 
           <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
           <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-analytics.js"></script>
