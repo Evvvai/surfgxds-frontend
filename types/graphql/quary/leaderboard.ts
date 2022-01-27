@@ -27,3 +27,33 @@ export const LEADERBOARD = gql`
     }
   }
 `
+
+export const LEADERBOARD_CACHED = gql`
+  query ($mapId: Int!, $limit: Int, $offset: Int) {
+    leaderboardCached(
+      input: { mapId: $mapId, limit: $limit, offset: $offset }
+    ) {
+      acPlace
+      ac
+      apPlace
+      ap
+      upPlace
+      up
+      ucPlace
+      uc
+      place
+      completesPercent
+      avg
+      player {
+        id
+        steamid
+        steamid64
+        nick
+        profileurl
+        avatarfull
+        avatarCustom
+        role
+      }
+    }
+  }
+`

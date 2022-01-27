@@ -8,6 +8,7 @@ import cn from 'classnames'
 import { Player } from '@store'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { changeDecode } from '../../../utils/changeDecode'
 
 // Interface
 interface Props {
@@ -45,7 +46,8 @@ const PlayerEmbend: FC<Props> = ({ player }: Props) => {
         className={cn(styles.playerImg, { [styles.isLoading]: !isLoad })}
         src={src}
       ></img>
-      <div className={styles.playerNick}>{player.nick}</div>
+
+      <div className={styles.playerNick}>{changeDecode(player.nick)}</div>
     </div>
     // <Link href={'/' + player.steamid64}>
     //   <a>

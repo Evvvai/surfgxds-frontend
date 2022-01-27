@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useRef, useState } from 'react'
 import Head from 'next/head'
 import { serverHandle } from 'utils/graphql'
-import { LEADERBOARD } from 'types/graphql/quary'
+import { LEADERBOARD_CACHED } from 'types/graphql/quary'
 import { loadedLeaderboard } from 'stores/leaderboard.slice'
 
 // Styles
@@ -15,8 +15,6 @@ import { useLeaderboard } from 'hooks/store/leaderboard'
 import { useApp } from 'hooks/store/app'
 
 // Utils
-import { changedMap } from 'stores/app.slice'
-import { Maps } from '@types'
 import { useRouter } from 'next/router'
 
 interface Props {}
@@ -88,7 +86,7 @@ Leaderboard.getInitialProps = async ({ query, res, store }) => {
     const offset = Math.abs(+query.offset) || 0
     const currentMap = store.getState().app.currentMap
 
-    const [top, topErrors] = await serverHandle(res, LEADERBOARD, {
+    const [top, topErrors] = await serverHandle(res, LEADERBOARD_CACHED, {
       mapId: currentMap.id,
       limit: limit,
       offset: offset,

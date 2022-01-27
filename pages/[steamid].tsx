@@ -36,6 +36,7 @@ import Modal from 'components/UI/Modal/Modal.component'
 import { Player } from '@store'
 import { useRouter } from 'next/dist/client/router'
 import Head from 'next/head'
+import { changeDecode } from 'utils/changeDecode'
 
 interface Props {
   playerData: Player
@@ -115,8 +116,8 @@ const Profile = ({ playerData }: Props) => {
               </div>
             )}
           </div>
-          <span className={Name}>{playerData.nick}</span>
-          {/* <span className={Name}>{changeDecode(playerData.nick)}</span> */}
+          {/* <span className={Name}>{playerData.nick}</span> */}
+          <span className={Name}>{changeDecode(playerData.nick)}</span>
         </div>
         <FooterWaveIcon className={wave} />
         <div className={profileInner}>
