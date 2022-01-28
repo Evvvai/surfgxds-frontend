@@ -73,8 +73,8 @@ SuggestedTricks.getInitialProps = async ({ query, store, res }) => {
   // const isLoad = store.getState().trickSuggested.isLoad
   // if (!isLoad) {
   const isLoggedIn = store.getState().player.isLoggedIn
-  const limit = Math.abs(+query.limit) || 100
-  const offset = Math.abs(+query.offset) || 0
+  const limit = Math.abs(+query?.limit || 100)
+  const offset = Math.abs(+query?.offset || 0)
   const currentMap = store.getState().app.currentMap
 
   const [tricksSuggested, tricksSuggestedErrors] = await serverHandle(

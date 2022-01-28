@@ -29,6 +29,7 @@ import { MAPS } from 'types/graphql/quary'
 import Cookies, { parseCookies } from 'nookies'
 import { useDispatch } from 'react-redux'
 import { usePlayer } from '../hooks/store/player/usePlayer'
+import { Maps } from '@types'
 
 /////////////////////////////////////////////////////////////////////////////////////
 function MyApp({ Component, pageProps }: AppProps) {
@@ -83,7 +84,8 @@ MyApp.getInitialProps = wrapper.getInitialAppProps(
         const [maps, mapsErrors] = await serverHandle(ctx, MAPS, {})
 
         const cookies = ctx ? Cookies.get(ctx) : parseCookies()
-        const map = cookies.map
+        const map =
+          maps.find((x: Maps) => x.name === ctx.query?.map).id || cookies.map
 
         if (player && !playerErrors) {
           store.dispatch(setPlayerSetting(player))
