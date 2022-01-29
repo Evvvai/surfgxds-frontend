@@ -31,6 +31,7 @@ import { useOutsideClick } from 'hooks/events'
 // Utils
 import Link from 'next/link'
 import cn from 'classnames'
+import { changeDecode } from 'utils/changeDecode'
 
 interface Props {
   setOpen: any
@@ -74,7 +75,7 @@ export default function Menu(props: Props): JSX.Element {
                       : process.env.AVATAR_NULL
                   }
                 />
-                <span>Evai</span>
+                <span>{changeDecode(playerInfo.nick)}</span>
               </div>
             </a>
           </Link>

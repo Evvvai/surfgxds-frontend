@@ -165,7 +165,7 @@ const Header: FC = () => {
                                 ? playerInfo.avatarfull
                                 : process.env.AVATAR_NULL
                             }
-                            alt="Evai"
+                            alt=""
                             width="32"
                             height="32"
                           />
