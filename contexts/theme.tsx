@@ -33,8 +33,8 @@ export function ThemeProvider({ children }: ThemeProviderProps): JSX.Element {
   const [themeContext, setThemeContext] = useState<ThemeVarious>(theme)
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', themeContext)
-    browserStorage.setItem('theme', themeContext)
+
+
   }, [themeContext])
 
   return (
