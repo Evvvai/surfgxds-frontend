@@ -84,8 +84,8 @@ export default function TricksItem({ trick, triggers }: Props): JSX.Element {
         <div
           className={cn(styles.item, styles.itemTn, {
             [styles.itemTnNone]: isLoggedIn
-              ? trick.myCompletes === '0'
-              : trick.completes === '0',
+              ? trick.myCompletes === 0
+              : trick.completes === 0,
           })}
         >
           <div>{trick.name}</div>
