@@ -69,6 +69,11 @@
   --color-highlight: #{$color-highlight};
   --color-fight: #e74545;
 
+  // [Suggested]
+  --color-pending: rgb(255, 184, 71);
+  --color-accepted: rgb(114, 255, 114);
+  --color-declined: rgb(255, 26, 26);
+
   // Need create theme
   --color-trick-name: #4e92ff;
   --color-trick-name-none: #ff714e;

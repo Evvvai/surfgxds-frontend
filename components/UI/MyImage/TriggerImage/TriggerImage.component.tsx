@@ -50,7 +50,12 @@ const TriggerImage: FC<Props> = (props: Props) => {
           style={{ width: ref?.current?.clientHeight }}
         ></div>
       ) : (
-        <img className={styles.image} src={src} alt="." />
+        <img
+          className={styles.image}
+          src={src}
+          alt="."
+          style={{ width: ref?.current?.clientHeight }}
+        />
       )}
     </Fragment>
   )

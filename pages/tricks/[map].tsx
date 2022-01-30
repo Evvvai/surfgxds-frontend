@@ -10,6 +10,7 @@ import { GiAbstract007 } from 'react-icons/gi'
 // Components
 import TricksListHeader from '../../components/tricks/tricks-header/TricksListHeader.component'
 import TricksList from '../../components/tricks/TricksList.component'
+import MySlider from '../../components/UI/MySlider/MySlider.component'
 
 // Custom hook
 import { useTrick } from '../../hooks/store/trick/useTrick'
@@ -26,6 +27,7 @@ import { usePlayer } from '../../hooks/store/player/usePlayer'
 import MyInput from '../../components/UI/MyInput/MyInput.component'
 import { Trick } from '@store'
 import { TRIGGERS } from 'types/graphql/quary'
+import cn from 'classnames'
 
 interface Props {}
 
@@ -34,11 +36,18 @@ const Tricks = (props: Props) => {
   const router = useRouter()
 
   const { currentMap } = useApp()
-  const { filteringTriggers, triggers, tricks, filteredTricks, loadTricks } =
-    useTrick()
+  const {
+    filteringTricks,
+    triggers,
+    tricks,
+    filteredTricks,
+    loadTricks,
+    filters,
+  } = useTrick()
   const { playerInfo } = usePlayer()
 
   const [term, setTerm] = useState<string>('')
+  const [isFiltersOpen, setIsFiltersOpen] = useState<boolean>(false)
 
   const mounted = useRef<boolean | null>(null)
   useEffect(() => {
@@ -72,13 +81,53 @@ const Tricks = (props: Props) => {
               model={{ value: term, setValue: setTerm }}
               type={'text'}
               name={'search'}
-              callback={filteringTriggers}
+              callback={(term: string) =>
+                filteringTricks([...tricks], {
+                  ...filters,
+                  term,
+                })
+              }
               debounce={350}
+              dependencies={[tricks]}
             />
-            <div className={styles.controlFilters}>
+            <div
+              onClick={(e) => setIsFiltersOpen(!isFiltersOpen)}
+              className={cn(styles.controlFilters, {
+                [styles.controlFiltersActive]: isFiltersOpen,
+              })}
+            >
               <GiAbstract007 />
             </div>
           </div>
+          {isFiltersOpen && (
+            <div
+              className={cn(styles.filters, {
+                [styles.filtersActive]: isFiltersOpen,
+              })}
+            >
+              {/* <div>Triggers</div> */}
+              <div className={styles.points}>
+                <MySlider
+                  min={Math.min(...tricks.map((x) => x.point))}
+                  max={Math.max(...tricks.map((x) => x.point))}
+                  currentMin={filters.pointsRange.min}
+                  currentMax={filters.pointsRange.max}
+                  callback={(min: number, max: number) =>
+                    filteringTricks([...tricks], {
+                      ...filters,
+                      pointsRange: {
+                        min,
+                        max,
+                      },
+                    })
+                  }
+                  debounceDelay={350}
+                  dependencies={[tricks]}
+                />
+              </div>
+              {/* <div>Its complete -+ | Velocity +-</div> */}
+            </div>
+          )}
           <TricksList tricks={filteredTricks} triggers={triggers} />
         </div>
       </section>

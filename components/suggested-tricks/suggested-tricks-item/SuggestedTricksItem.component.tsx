@@ -48,8 +48,6 @@ export default function SuggestedTricksItem(props: Props): JSX.Element {
 
   const handleClickRate = (rate: RateType) => (e: any) => {
     if (isLoggedIn) {
-      console.log('props.myRate?.rate', props.myRate?.rate, rate)
-
       if (props.myRate?.rate !== rate) changeMyRate(props.trick, rate)
     } else {
       // Show error

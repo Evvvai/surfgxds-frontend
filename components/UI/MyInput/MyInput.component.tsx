@@ -22,6 +22,7 @@ interface Props {
   callback?: (term: string) => void
   debounce?: number
   className?: any
+  dependencies?: any[]
 }
 
 type typeInput = 'password' | 'text' | 'email'
@@ -45,13 +46,16 @@ export default function MyInput(props: Props): JSX.Element {
     debounceTime
   )
 
-  // const dFunc = useCallback((term: string) => {
-  //   dFuncCallback(term)
-  // }, [])
+  const dFunc = useCallback(
+    (term: string) => {
+      dFuncCallback(term)
+    },
+    [...(props?.dependencies || [])]
+  )
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     props.model.setValue(e.target.value)
-    dFuncCallback(e.target.value)
+    dFunc(e.target.value)
   }
 
   return (

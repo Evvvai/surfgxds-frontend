@@ -3,8 +3,12 @@ import { Player } from './player'
 export interface TrickState {
   isLoad: boolean
   tricks: Trick[]
-  filteredTricks: Trick[]
   triggers: Trigger[]
+
+  sortSettings: SortTrickSetting
+  filters: FiltersTrick
+
+  filteredTricks: Trick[]
 }
 
 export interface Trick {
@@ -16,8 +20,8 @@ export interface Trick {
   dateAdd: Date
   len: number | null
   authorSteamid: string | null
-  completes: string | null
-  myCompletes: string | null
+  completes: number | null
+  myCompletes: number | null
   routeIds: string
   author: Player
 
@@ -63,4 +67,30 @@ export interface TrickWR {
   player: Player
 
   isErrors: boolean
+}
+
+export const sortingTricksOptions = [
+  'index',
+  'name',
+  'point',
+  'completes',
+  'myCompletes',
+  'len',
+] as const
+export type SortingTricksOptions = typeof sortingTricksOptions[number]
+
+export const sortingTricksDirections = ['asc', 'desc'] as const
+export type SortingTricksDirections = typeof sortingTricksDirections[number]
+
+export interface SortTrickSetting {
+  sort: SortingTricksOptions
+  dir: SortingTricksDirections
+}
+
+export interface FiltersTrick {
+  term: string
+  pointsRange: {
+    min: number
+    max: number
+  }
 }

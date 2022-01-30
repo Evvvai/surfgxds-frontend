@@ -55,28 +55,28 @@
   &Status {
     width: 8%;
     font-size: 0.75rem;
-    font-weight: 900;
+    font-weight: 700;
     align-items: center;
     justify-content: center;
 
     &Pending {
-      color: rgb(255, 191, 71);
+      color: var(--color-pending);
       :last-child {
-        background-color: rgb(255, 191, 71);
+        background-color: var(--color-pending);
       }
     }
 
     &Accepted {
-      color: green;
+      color: var(--color-accepted);
       :last-child {
-        background-color: green;
+        background-color: var(--color-accepted);
       }
     }
 
     &Declined {
-      color: red;
+      color: var(--color-declined);
       :last-child {
-        background-color: red;
+        background-color: var(--color-declined);
       }
     }
 

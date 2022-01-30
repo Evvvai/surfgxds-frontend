@@ -1,12 +1,31 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Trick, TrickState, Trigger } from '@store'
+import {
+  FiltersTrick,
+  SortTrickSetting,
+  Trick,
+  TrickState,
+  Trigger,
+} from '@store'
 import { HYDRATE } from 'next-redux-wrapper'
 
 const initialState: TrickState = {
   isLoad: false,
   tricks: [],
-  filteredTricks: [],
   triggers: [],
+
+  sortSettings: {
+    dir: 'asc',
+    sort: 'index',
+  } as SortTrickSetting,
+  filters: {
+    term: '',
+    pointsRange: {
+      max: 0,
+      min: 0,
+    },
+  },
+
+  filteredTricks: [],
 }
 
 // Slice
@@ -23,14 +42,34 @@ const trickSlice = createSlice({
       state.tricks = payload.tricks
       state.filteredTricks = payload.tricks
       state.triggers = payload.triggers
+      state.filters = {
+        ...state.filters,
+        pointsRange: {
+          min: Math.min(...payload.tricks.map((x) => x.point)),
+          max: Math.max(...payload.tricks.map((x) => x.point)),
+        },
+      }
     },
     resetTricks: (state) => {
       state.isLoad = false
       state.tricks = []
       state.triggers = []
     },
-    filtered: (state, { payload }: PayloadAction<Trick[]>) => {
-      state.filteredTricks = payload
+    filtered: (
+      state,
+      { payload }: PayloadAction<{ tricks: Trick[]; filters: FiltersTrick }>
+    ) => {
+      state.filteredTricks = payload.tricks
+      state.filters = payload.filters
+    },
+    sorted: (
+      state,
+      {
+        payload,
+      }: PayloadAction<{ tricks: Trick[]; sortSetting: SortTrickSetting }>
+    ) => {
+      state.tricks = payload.tricks
+      state.sortSettings = payload.sortSetting
     },
     updatedTrigger: (state, { payload }: PayloadAction<Trigger>) => {
       state.triggers = state.triggers.map((val) => {
