@@ -1,6 +1,6 @@
 module.exports = {
   siteUrl: process.env.NEXT_SITE_URL || 'https://surfgxds.xyz',
-  changefreq: 'daily',
+  changefreq: 'hourly',
   priority: 0.7,
   sitemapSize: 5000,
   generateRobotsTxt: true,
@@ -19,25 +19,25 @@ module.exports = {
     const result = []
     result.push({
       loc: '/tricks/ski2',
-      changefreq: 'daily',
+      changefreq: 'hourly',
       priority: 0.9,
       lastmod: new Date().toISOString(),
     })
     result.push({
       loc: '/tricks/strafes',
-      changefreq: 'daily',
+      changefreq: 'hourly',
       priority: 0.9,
       lastmod: new Date().toISOString(),
     })
     result.push({
       loc: '/leaderboard/ski2',
-      changefreq: 'daily',
+      changefreq: 'hourly',
       priority: 0.8,
       lastmod: new Date().toISOString(),
     })
     result.push({
       loc: '/leaderboard/strafes',
-      changefreq: 'daily',
+      changefreq: 'hourly',
       priority: 0.8,
       lastmod: new Date().toISOString(),
     })

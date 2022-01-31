@@ -52,11 +52,11 @@ const SuggestedTricks = (props: Props) => {
   return (
     <Fragment>
       <Head>
-        <title>{currentMap.alternativeName + '| Suggested tricks'}</title>
-        <meta name="description" property="og:description" content="SurfGxds" />
-        <meta name="og:title" content="SurfGxds" />
-        <meta name="robots" content="INDEX,FOLLOW" />
-        <link rel="canonical" />
+        <title>{currentMap.alternativeName + ' | Suggested tricks'}</title>
+        <meta
+          name="description"
+          content={`Suggested tricks for the ${currentMap.alternativeName} map`}
+        />
       </Head>
       <section className={styles.tricks}>
         <div className={styles.tricksContent}>

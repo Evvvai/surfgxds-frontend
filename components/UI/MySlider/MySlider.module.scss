@@ -27,8 +27,8 @@
 
   background-image: linear-gradient(
     to right,
-    var(--color-background-content) 0%,
-    var(--color-background-content) var(--minRangePercent),
+    var(--color-background-highlight) 0%,
+    var(--color-background-highlight) var(--minRangePercent),
     var(--color-highlight) var(--minRangePercent),
     var(--color-highlight) 100%
   );
@@ -42,8 +42,8 @@
     to right,
     var(--color-highlight) 0%,
     var(--color-highlight) var(--maxRangePercent),
-    var(--color-background-content) var(--maxRangePercent),
-    var(--color-background-content) 100%
+    var(--color-background-highlight) var(--maxRangePercent),
+    var(--color-background-highlight) 100%
   );
 }
 

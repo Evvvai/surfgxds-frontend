@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import { Fragment, useEffect } from 'react'
 import Head from 'next/head'
 
 // Components
@@ -8,31 +8,28 @@ import Head from 'next/head'
 // Styles
 import styles from '../styles/home/Home.module.scss'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 const { home, homeContent } = styles
 
 interface Props {}
 
 /////////////////////////////////////////////////////////////////////////////////////
 const Home = (props: Props) => {
+  const router = useRouter()
+
+  useEffect(() => {
+    router.push({
+      pathname: '/tricks/ski2',
+    })
+  }, [])
+
   return (
     <Fragment>
       <Head>
         <title>SurfGxds</title>
-        <meta name="description" property="og:description" content="SurfGxds" />
-        <meta name="og:title" content="SurfGxds" />
-        <meta name="robots" content="INDEX,FOLLOW" />
+        <meta name="description" content="SurfGxds" />
       </Head>
-      <div className={home}>
-        <section className={homeContent}>
-          <span>Oh yea black & white</span>
-          <Link href={'/leaderboard'}>
-            <a>
-              <span>Leaderboard</span>
-            </a>
-          </Link>
-          <span>blank</span>
-        </section>
-      </div>
+      <div className={home}></div>
     </Fragment>
   )
 }

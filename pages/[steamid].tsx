@@ -53,11 +53,8 @@ const Profile = ({ playerData }: Props) => {
   return (
     <>
       <Head>
-        <title>{playerData.nick}</title>
-        <meta name="description" property="og:description" content="SurfGxds" />
-        <meta name="og:title" content="SurfGxds" />
-        <meta name="robots" content="INDEX,FOLLOW" />
-        <link rel="canonical" />
+        <title>{`${playerData.nick} | SurfGxds`}</title>
+        <meta name="description" content={`Player profile with his stats`} />
       </Head>
       <div className={profile}>
         <div className={Dashboard}>

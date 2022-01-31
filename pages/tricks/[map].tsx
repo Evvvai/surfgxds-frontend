@@ -6,11 +6,14 @@ import styles from '../../styles/tricks/Tricks.module.scss'
 
 // Icons
 import { GiAbstract007 } from 'react-icons/gi'
+import { RiCloseFill } from 'react-icons/ri'
+import { AiOutlineAppstoreAdd } from 'react-icons/ai'
 
 // Components
 import TricksListHeader from '../../components/tricks/tricks-header/TricksListHeader.component'
 import TricksList from '../../components/tricks/TricksList.component'
 import MySlider from '../../components/UI/MySlider/MySlider.component'
+import TricksFiltersTriggersSelector from '../../components/tricks/tricks-filters-triggers-selector/TricksFiltersTriggersSelector.component'
 
 // Custom hook
 import { useTrick } from '../../hooks/store/trick/useTrick'
@@ -28,6 +31,7 @@ import MyInput from '../../components/UI/MyInput/MyInput.component'
 import { Trick } from '@store'
 import { TRIGGERS } from 'types/graphql/quary'
 import cn from 'classnames'
+import { useTrickFilters } from '../../hooks/store/trick/useTrickFilters'
 
 interface Props {}
 
@@ -36,18 +40,13 @@ const Tricks = (props: Props) => {
   const router = useRouter()
 
   const { currentMap } = useApp()
-  const {
-    filteringTricks,
-    triggers,
-    tricks,
-    filteredTricks,
-    loadTricks,
-    filters,
-  } = useTrick()
+  const { triggers, tricks, filteredTricks, loadTricks } = useTrick()
+  const { filteringTricks, filters, addTriggerToFilters } = useTrickFilters()
   const { playerInfo } = usePlayer()
 
   const [term, setTerm] = useState<string>('')
   const [isFiltersOpen, setIsFiltersOpen] = useState<boolean>(false)
+  const [isSuggestOpen, setIsSuggestOpen] = useState<boolean>(false)
 
   const mounted = useRef<boolean | null>(null)
   useEffect(() => {
@@ -67,11 +66,11 @@ const Tricks = (props: Props) => {
   return (
     <Fragment>
       <Head>
-        <title>{currentMap.alternativeName + '| Tricks'}</title>
-        <meta name="description" property="og:description" content="SurfGxds" />
-        <meta name="og:title" content="SurfGxds" />
-        <meta name="robots" content="INDEX,FOLLOW" />
-        <link rel="canonical" />
+        <title>{currentMap.alternativeName + ' | Tricks'}</title>
+        <meta
+          name="description"
+          content={`List of all available tricks for the ${currentMap.alternativeName} map`}
+        />
       </Head>
       <section className={styles.tricks}>
         <div className={styles.content}>
@@ -100,12 +99,7 @@ const Tricks = (props: Props) => {
             </div>
           </div>
           {isFiltersOpen && (
-            <div
-              className={cn(styles.filters, {
-                [styles.filtersActive]: isFiltersOpen,
-              })}
-            >
-              {/* <div>Triggers</div> */}
+            <div className={styles.filters}>
               <div className={styles.points}>
                 <MySlider
                   min={Math.min(...tricks.map((x) => x.point))}
@@ -125,6 +119,34 @@ const Tricks = (props: Props) => {
                   dependencies={[tricks]}
                 />
               </div>
+              <div className={styles.triggers}>
+                <div className={styles.triggersList}>
+                  <AiOutlineAppstoreAdd
+                    onClick={() => setIsSuggestOpen(true)}
+                    className={styles.triggersAdd}
+                  />
+                  {filters.triggers.map((trigger) => {
+                    return (
+                      <div
+                        onClick={() => addTriggerToFilters(trigger)}
+                        className={styles.triggersItem}
+                        key={trigger.id}
+                      >
+                        <div className={styles.triggersInner}>
+                          <div>{trigger.name}</div>
+                          <RiCloseFill />
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+
+              <TricksFiltersTriggersSelector
+                isSuggestOpen={isSuggestOpen}
+                setIsSuggestOpen={setIsSuggestOpen}
+              />
+
               {/* <div>Its complete -+ | Velocity +-</div> */}
             </div>
           )}

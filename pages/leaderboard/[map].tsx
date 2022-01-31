@@ -48,10 +48,11 @@ const Leaderboard = (props: Props) => {
   return (
     <Fragment>
       <Head>
-        <title>{currentMap.alternativeName + '| Leaderboard'}</title>
-        <meta name="description" property="og:description" content="SurfGxds" />
-        <meta name="og:title" content="SurfGxds" />
-        <meta name="robots" content="INDEX,FOLLOW" />
+        <title>{currentMap.alternativeName + ' | Leaderboard'}</title>
+        <meta
+          name="description"
+          content={`Leaderboard table for the ${currentMap.alternativeName} map , by percentage of completion, and avg place by 4 tops (unique points, all points, all tricks, unique tricks)`}
+        />
       </Head>
       <section className={styles.leaderboard}>
         <div className={styles.title}>

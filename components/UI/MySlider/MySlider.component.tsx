@@ -96,7 +96,7 @@ export default function MySlider({
           <span> - </span>
           <span>{~~maxVal}</span>
         </div>
-        <span className={style.pointsRangeMax}>{max}</span>
+        <span className={style.rangeMax}>{max}</span>
       </div>
       <div
         ref={ref}

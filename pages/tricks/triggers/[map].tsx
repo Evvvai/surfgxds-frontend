@@ -73,10 +73,11 @@ const Triggers = (props: Props) => {
   return (
     <Fragment>
       <Head>
-        <title>{currentMap.alternativeName + '| Triggers'}</title>
-        <meta name="description" property="og:description" content="SurfGxds" />
-        <meta name="og:title" content="SurfGxds" />
-        <meta name="robots" content="INDEX,FOLLOW" />
+        <title>{currentMap.alternativeName + ' | Triggers'}</title>
+        <meta
+          name="description"
+          content={`List of all available triggers for the ${currentMap.alternativeName} map`}
+        />
       </Head>
       <section className={styles.triggers}>
         <div className={styles.content}>

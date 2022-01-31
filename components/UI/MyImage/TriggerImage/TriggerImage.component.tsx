@@ -28,27 +28,28 @@ interface Photo {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const TriggerImage: FC<Props> = (props: Props) => {
   const [isLoad, setIsLoad] = useState<boolean>(false)
+  const [mounted, setMounted] = useState<boolean>(false)
 
   const ref = useRef<HTMLDivElement | null>(null)
 
   const src = props.photo?.src || (process.env.NOT_TRIGGER as string)
 
   useEffect(() => {
-    const image = new Image()
-    image.src = src
-    image.onload = () => {
-      setIsLoad(true)
+    if (!mounted) setMounted(true)
+    else {
+      const image = new Image()
+      image.src = src
+      image.onload = () => setIsLoad(true)
     }
-  }, [])
+  }, [mounted])
 
   return (
-    <Fragment>
-      {!isLoad ? (
+    <div ref={ref} className={styles.content}>
+      {!isLoad && mounted ? (
         <div
-          ref={ref}
           className={styles.isLoading}
-          style={{ width: ref?.current?.clientHeight }}
-        ></div>
+          style={{ width: ref?.current?.clientHeight + 'px' }}
+        />
       ) : (
         <img
           className={styles.image}
@@ -57,7 +58,7 @@ const TriggerImage: FC<Props> = (props: Props) => {
           style={{ width: ref?.current?.clientHeight }}
         />
       )}
-    </Fragment>
+    </div>
   )
 }
 

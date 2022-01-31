@@ -9,6 +9,7 @@ import PlayerEmbend from '../../UI/PlayerEmbend/PlayerEmbend.component'
 
 // Custom hooks
 import { usePlayer } from '../../../hooks/store/player/usePlayer'
+import { useTrickFilters } from 'hooks/store/trick/useTrickFilters'
 
 // Utils
 import cn from 'classnames'
@@ -25,6 +26,7 @@ interface Props {
 ///////////////////////////////////////////////////////////////////////////////////////////
 export default function TricksItem({ trick, triggers }: Props): JSX.Element {
   const { isLoggedIn } = usePlayer()
+  const { addTriggerToFilters, filters } = useTrickFilters()
 
   const [isActive, setIsActive] = useState<boolean>(false)
   const [route, setRoute] = useState<Trigger[] | null>(null)
@@ -115,12 +117,21 @@ export default function TricksItem({ trick, triggers }: Props): JSX.Element {
             {route.map((trigger, key) => {
               return (
                 <div
-                  key={trick.id + '|' + trigger.id}
+                  key={trick.id + '|' + trigger.id + '|' + key}
                   className={styles.routeItem}
                 >
-                  <div className={styles.routeContent}>
+                  <div
+                    className={cn(styles.routeContent, {
+                      [styles.routeContentActive]: filters.triggers.find(
+                        (x) => x.id === trigger.id
+                      ),
+                    })}
+                  >
                     <div className={styles.routeTitle}>{trigger.name}</div>
-                    <div className={styles.routeImg}>
+                    <div
+                      onClick={() => addTriggerToFilters(trigger)}
+                      className={styles.routeImg}
+                    >
                       <TriggerImage photo={{ ...trigger }} />
                     </div>
                     <div className={styles.routeCount}>{key + 1}</div>

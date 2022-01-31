@@ -14,7 +14,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       return {
         loc: process.env.NEXT_SITE_URL + '/tricks/' + val.name,
         lastmod: new Date().toISOString(),
-        changefreq: 'daily',
+        changefreq: 'hourly',
         priority: 0.9,
       }
     }),
@@ -22,7 +22,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       return {
         loc: process.env.NEXT_SITE_URL + '/suggested/' + val.name,
         lastmod: new Date().toISOString(),
-        changefreq: 'daily',
+        changefreq: 'hourly',
         priority: 0.85,
       }
     }),
@@ -30,7 +30,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       return {
         loc: process.env.NEXT_SITE_URL + '/triggers/' + val.name,
         lastmod: new Date().toISOString(),
-        changefreq: 'daily',
+        changefreq: 'hourly',
         priority: 0.8,
       }
     }),
@@ -38,7 +38,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
       return {
         loc: process.env.NEXT_SITE_URL + '/leaderboard/' + val.name,
         lastmod: new Date().toISOString(),
-        changefreq: 'daily',
+        changefreq: 'hourly',
         priority: 0.75,
       }
     }),

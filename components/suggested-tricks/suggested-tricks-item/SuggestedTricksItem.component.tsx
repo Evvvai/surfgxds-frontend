@@ -114,7 +114,7 @@ export default function SuggestedTricksItem(props: Props): JSX.Element {
             {props.trick.route.map((trigger, key) => {
               return (
                 <div
-                  key={props.trick.id + '|' + trigger.id}
+                  key={props.trick.id + '|' + trigger.id + '|' + key}
                   className={styles.routeItem}
                 >
                   <div className={styles.routeContent}>

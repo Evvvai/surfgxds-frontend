@@ -93,4 +93,5 @@ export interface FiltersTrick {
     min: number
     max: number
   }
+  triggers: Trigger[]
 }

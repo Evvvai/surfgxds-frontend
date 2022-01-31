@@ -106,13 +106,13 @@ $circle-scale: 100px;
 
 .filters {
   width: 100%;
-  display: none;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  background-color: var(--color-background-content);
+  border-radius: 4px 4px 15px 15px;
 
   margin: 15px 0;
-
-  &Active {
-    display: flex;
-  }
 }
 
 .points {
@@ -122,4 +122,66 @@ $circle-scale: 100px;
 
   width: 100%;
   height: 50px;
+}
+
+.triggers {
+  margin-top: 20px;
+
+  &List {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
+  &Item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+
+    background-color: var(--color-background-highlight);
+    padding: 5px 10px;
+    border-radius: 25px;
+
+    &:hover {
+      box-shadow: 0px 0px 5px var(--color-highlight);
+      transition: all 0.2s ease-in;
+    }
+    transition: all 0.2s ease-out;
+  }
+
+  &Inner {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+
+    :first-child {
+      color: var(--color-text);
+      font-size: 1rem;
+    }
+
+    :last-child {
+      fill: var(--color-text);
+      height: 20px;
+      width: 20px;
+    }
+
+    cursor: pointer;
+  }
+
+  &Add {
+    fill: var(--color-text);
+    height: 100%;
+    width: 30px;
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(1.1);
+      transition: all 0.2s ease-in;
+    }
+    transition: all 0.2s ease-out;
+  }
 }
