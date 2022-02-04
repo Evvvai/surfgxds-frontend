@@ -103,6 +103,11 @@
       height: 104px;
       object-fit: cover;
       border-radius: 50%;
+
+      @include mobile {
+        width: 70px;
+        height: 70px;
+      }
     }
 
     &Image {
@@ -116,6 +121,11 @@
       height: 96px;
       object-fit: cover;
       border-radius: 50%;
+
+      @include mobile {
+        width: 64px;
+        height: 64px;
+      }
     }
 
     &Edit {
@@ -154,8 +164,18 @@
     color: var(--color-highlight);
     font-weight: 700;
 
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
     margin-top: -25px;
     margin-left: 10px;
+
+    @include mobile {
+      margin-top: -18px;
+      margin-left: 0px;
+      font-size: 1rem;
+    }
   }
 }
 

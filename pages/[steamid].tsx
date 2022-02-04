@@ -1,6 +1,6 @@
-import { useState } from 'react'
-import { clientHandle } from 'utils/graphql'
-import { PLAYER } from 'types/graphql/quary'
+import { useEffect, useRef, useState } from 'react'
+import { clientHandle, serverHandle } from 'utils/graphql'
+import { PLAYER, PLAYER_STATS } from 'types/graphql/quary'
 
 // Styles
 import styles from '../styles/profile/Profile.module.scss'
@@ -26,34 +26,50 @@ import { TiEdit } from 'react-icons/ti'
 // Components
 import AvatarEditModal from 'components/profile/avatar-edit/AvatarEdit.component'
 import DashboardEditModal from 'components/profile/dasboard-edit/DashboardEdit.component'
+import ProfileOverview from '../components/profile/profile-overview/ProfileOverview'
 
 // Custom hooks
 import { usePlayer } from '../hooks/store/player/usePlayer'
+import { useApp } from 'hooks/store/app'
 
 // Utils
 import { Portal } from 'utils/portal'
 import Modal from 'components/UI/Modal/Modal.component'
-import { Player } from '@store'
+import { Player, PlayerStats } from '@store'
 import { useRouter } from 'next/dist/client/router'
 import Head from 'next/head'
 import { changeDecode } from 'utils/changeDecode'
 
 interface Props {
   playerData: Player
+  playerStats: PlayerStats
 }
 
 /////////////////////////////////////////////////////////////////////////////////////
-const Profile = ({ playerData }: Props) => {
+const Profile = (props: Props) => {
   const router = useRouter()
-  const { playerInfo } = usePlayer()
+  const { playerInfo, loadPlayerStats } = usePlayer()
+  const { currentMap } = useApp()
 
   const [isAvatarEdit, setIsAvatarEdit] = useState<boolean>(false)
   const [isDashboardEdit, setIsDashboardEdit] = useState<boolean>(false)
 
+  const [playerData, setPlayerData] = useState<Player>(props.playerData)
+  const [playerStats, setPlayerStats] = useState<PlayerStats>(props.playerStats)
+
+  const mounted = useRef<boolean | null>(null)
+  useEffect(() => {
+    !mounted.current
+      ? (mounted.current = true)
+      : loadPlayerStats(playerData.steamid64).then((data) =>
+          setPlayerStats(data)
+        )
+  }, [currentMap])
+
   return (
     <>
       <Head>
-        <title>{`${playerData.nick} | SurfGxds`}</title>
+        <title>{`${changeDecode(playerData.nick)} | SurfGxds`}</title>
         <meta name="description" content={`Player profile with his stats`} />
       </Head>
       <div className={profile}>
@@ -118,7 +134,7 @@ const Profile = ({ playerData }: Props) => {
         </div>
         <FooterWaveIcon className={wave} />
         <div className={profileInner}>
-          <span>blank</span>
+          {playerStats && <ProfileOverview playerStats={playerStats} />}
         </div>
       </div>
     </>
@@ -127,14 +143,26 @@ const Profile = ({ playerData }: Props) => {
 
 Profile.getInitialProps = async ({ query, store, res }) => {
   try {
-    const [playerData, errors] = await clientHandle(PLAYER, {
+    const currentMap = store.getState().app.currentMap
+
+    const [playerData, playerDataErrors] = await serverHandle(res, PLAYER, {
       steamid64: query.steamid,
     })
+    const [playerStats, playerStatsErrors] = await serverHandle(
+      res,
+      PLAYER_STATS,
+      {
+        steamid64: query.steamid,
+        mapId: currentMap.id,
+      }
+    )
+    console.log('playerStats', currentMap.id, query.steamid)
 
-    if (!playerData || errors) throw new Error()
+    if (!playerData || playerDataErrors) throw new Error()
 
     return {
       playerData,
+      playerStats,
     }
   } catch (e) {
     res.writeHead(307, { Location: '/404' })

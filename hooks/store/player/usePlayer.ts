@@ -6,10 +6,14 @@ import { useCallback } from 'react'
 import client, { clientHandle } from 'utils/graphql'
 import { AUTH } from 'types/graphql/mutation'
 import { setCookie } from 'nookies'
+import { useApp } from '../app/useApp'
+import { PLAYER_STATS } from 'types/graphql/quary'
 
 // Player Hook Selector / Dispatch
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 export const usePlayer = () => {
+  const { currentMap } = useApp()
+
   const dispatch = useDispatch()
 
   const { setPlayerSetting, removePlayerSetting } = bindActionCreators(
@@ -43,5 +47,28 @@ export const usePlayer = () => {
     setPlayerSetting(data)
   }, [])
 
-  return { isLoggedIn, playerInfo, authPlayer, logOut, setPlayer }
+  const loadPlayerStats = useCallback(
+    async (steamid: string) => {
+      // browserStorage.setItem('token', data.token)  // Obsolete
+      const [playerStats, playerStatsErrors] = await clientHandle(
+        PLAYER_STATS,
+        {
+          steamid64: steamid,
+          mapId: currentMap.id,
+        }
+      )
+
+      return playerStats
+    },
+    [currentMap]
+  )
+
+  return {
+    isLoggedIn,
+    playerInfo,
+    authPlayer,
+    logOut,
+    setPlayer,
+    loadPlayerStats,
+  }
 }

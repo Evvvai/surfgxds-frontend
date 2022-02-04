@@ -16,6 +16,24 @@ export interface Player {
   role: Role
 }
 
+export interface PlayerStats {
+  avg: string
+  ap: number
+  apPlace: number
+  ac: number
+  acPlace: number
+  up: number
+  upPlace: number
+  uc: number
+  ucPlace: number
+  completesPercent: string
+  tricksPoints: number
+  tricksCounts: number
+  twrCounts: number
+  swrCounts: number
+  tricksCreated: number
+}
+
 export interface PlayerAuth {
   token: string
   player: Player

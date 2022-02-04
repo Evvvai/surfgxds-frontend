@@ -70,39 +70,45 @@ const SuggestedTricks = (props: Props) => {
 export default SuggestedTricks
 
 SuggestedTricks.getInitialProps = async ({ query, store, res }) => {
-  // const isLoad = store.getState().trickSuggested.isLoad
-  // if (!isLoad) {
-  const isLoggedIn = store.getState().player.isLoggedIn
-  const limit = Math.abs(+query?.limit || 100)
-  const offset = Math.abs(+query?.offset || 0)
   const currentMap = store.getState().app.currentMap
 
-  const [tricksSuggested, tricksSuggestedErrors] = await serverHandle(
-    res,
-    SUGGESTED_TRICK,
-    {
-      mapId: currentMap.id,
-      limit: limit,
-      offset: offset,
-    }
-  )
+  try {
+    // const isLoad = store.getState().trickSuggested.isLoad
+    // if (!isLoad) {
+    const isLoggedIn = store.getState().player.isLoggedIn
+    const limit = Math.abs(+query?.limit || 100)
+    const offset = Math.abs(+query?.offset || 0)
 
-  const [myRates, myRatesErrors] = isLoggedIn
-    ? await serverHandle(res, PLAYER_RATE, {
-        ids: tricksSuggested?.map((val: TrickSuggested) => val.id),
-      })
-    : [[], []]
-
-  if (tricksSuggested) {
-    store.dispatch(
-      loadedTrickSuggested({
-        tricksSuggested,
-        myRates,
-        pagination: {
-          limit,
-          offset,
-        },
-      })
+    const [tricksSuggested, tricksSuggestedErrors] = await serverHandle(
+      res,
+      SUGGESTED_TRICK,
+      {
+        mapId: currentMap.id,
+        limit: limit,
+        offset: offset,
+      }
     )
+
+    const [myRates, myRatesErrors] = isLoggedIn
+      ? await serverHandle(res, PLAYER_RATE, {
+          ids: tricksSuggested?.map((val: TrickSuggested) => val.id),
+        })
+      : [[], []]
+
+    if (tricksSuggested) {
+      store.dispatch(
+        loadedTrickSuggested({
+          tricksSuggested,
+          myRates,
+          pagination: {
+            limit,
+            offset,
+          },
+        })
+      )
+    }
+  } catch (e) {
+    res.writeHead(201, { Location: '/tricks/suggested/' + currentMap.name })
+    res.end()
   }
 }
