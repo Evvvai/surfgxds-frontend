@@ -35,6 +35,9 @@ const trickEditorSlice = createSlice({
     setPointsTrick: (state, { payload }: PayloadAction<number>) => {
       state.points = payload
     },
+    setVelocityTrick: (state, { payload }: PayloadAction<boolean>) => {
+      state.velocity = payload
+    },
     sendTrick: (state) => {
       state.name = ''
       state.points = null

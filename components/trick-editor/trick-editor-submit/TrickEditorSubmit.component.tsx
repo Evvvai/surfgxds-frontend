@@ -20,8 +20,16 @@ interface Props {}
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 export default function TrickEditorSubmit(props: Props): JSX.Element {
-  const { name, points, route, setNameTrick, setPointsTrick, sendTrick } =
-    useTrickEditor()
+  const {
+    name,
+    points,
+    route,
+    velocity,
+    setNameTrick,
+    setPointsTrick,
+    setVelocityTrick,
+    sendTrick,
+  } = useTrickEditor()
   const { isLoggedIn, playerInfo } = usePlayer()
   const { currentMap } = useApp()
   const router = useRouter()
@@ -50,7 +58,7 @@ export default function TrickEditorSubmit(props: Props): JSX.Element {
       const [data, errors] = await clientHandle(SEND_TRICK, {
         name: name,
         point: points,
-        velocity: 0, // Need rework
+        velocity: velocity ? 1 : 0,
         authorId: playerInfo.id,
         mapId: currentMap?.id,
         route: route.map((trigger) => trigger.id).join(','),
@@ -92,6 +100,24 @@ export default function TrickEditorSubmit(props: Props): JSX.Element {
           type="number"
           placeholder="write amount points for trick"
         />
+      </div>
+      <div className={styles.velocity}>
+        <div> Velocity </div>
+        <div
+          onClick={() => setVelocityTrick(!velocity)}
+          className={styles.velocityControl}
+        >
+          {/* <input
+            checked={velocity}
+            className={styles.velocityControlInput}
+            type="radio"
+            onClick={() => setVelocityTrick(!velocity)}
+          /> 
+          <span className={styles.velocityControlIndicator}></span>*/}
+          <div className={styles.velocityControlText}>
+            {velocity ? 'unlimited speed' : 'pre-strafe'}
+          </div>
+        </div>
       </div>
       <div className={styles.route}>
         <div> Route </div>

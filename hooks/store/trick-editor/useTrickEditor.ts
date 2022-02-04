@@ -22,6 +22,7 @@ export const useTrickEditor = () => {
     clearTrickEditor,
     sendTrick,
     loadedTrickEditor,
+    setVelocityTrick,
   } = bindActionCreators(ActionCreators.actions, dispatch)
 
   const { name, points, route, trickEditingId, trigger, velocity } =
@@ -35,6 +36,7 @@ export const useTrickEditor = () => {
   return {
     loadTrickEditor,
     sendTrick,
+    setVelocityTrick,
     clearTrickEditor,
     setPointsTrick,
     setNameTrick,

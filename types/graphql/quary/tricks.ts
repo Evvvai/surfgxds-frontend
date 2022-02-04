@@ -57,6 +57,16 @@ export const TRICKS_STATS = gql`
       myCompletes
       len
       routeIds
+      author {
+        id
+        steamid
+        steamid64
+        nick
+        profileurl
+        avatarfull
+        avatarCustom
+        role
+      }
     }
   }
 `

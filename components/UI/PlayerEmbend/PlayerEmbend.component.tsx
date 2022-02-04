@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, Fragment, useEffect, useState } from 'react'
 
 // Style
 import styles from './PlayerEmbend.module.scss'
@@ -13,11 +13,12 @@ import { changeDecode } from '../../../utils/changeDecode'
 // Interface
 interface Props {
   player: Player
+  reverse?: boolean
 }
 
 // Component
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-const PlayerEmbend: FC<Props> = ({ player }: Props) => {
+const PlayerEmbend: FC<Props> = ({ player, reverse = false }: Props) => {
   const router = useRouter()
 
   const [isLoad, setIsLoad] = useState<boolean>(false)
@@ -42,12 +43,23 @@ const PlayerEmbend: FC<Props> = ({ player }: Props) => {
       onClick={(e) => router.push('/' + player.steamid64)}
       className={styles.player}
     >
-      <img
-        className={cn(styles.playerImg, { [styles.isLoading]: !isLoad })}
-        src={src}
-      ></img>
-
-      <div className={styles.playerNick}>{changeDecode(player.nick)}</div>
+      {reverse ? (
+        <Fragment>
+          <div className={styles.playerNick}>{changeDecode(player.nick)}</div>
+          <img
+            className={cn(styles.playerImg, { [styles.isLoading]: !isLoad })}
+            src={src}
+          ></img>
+        </Fragment>
+      ) : (
+        <Fragment>
+          <img
+            className={cn(styles.playerImg, { [styles.isLoading]: !isLoad })}
+            src={src}
+          ></img>
+          <div className={styles.playerNick}>{changeDecode(player.nick)}</div>
+        </Fragment>
+      )}
     </div>
     // <Link href={'/' + player.steamid64}>
     //   <a>
