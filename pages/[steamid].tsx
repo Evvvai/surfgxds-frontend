@@ -156,7 +156,6 @@ Profile.getInitialProps = async ({ query, store, res }) => {
         mapId: currentMap.id,
       }
     )
-    console.log('playerStats', currentMap.id, query.steamid)
 
     if (!playerData || playerDataErrors) throw new Error()
 
