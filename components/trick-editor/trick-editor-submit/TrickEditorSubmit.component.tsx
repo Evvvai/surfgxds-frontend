@@ -86,7 +86,7 @@ export default function TrickEditorSubmit(props: Props): JSX.Element {
         const [data, errors] = await clientHandle(SEND_TRICK, {
           name: name,
           point: points,
-          velocity: velocity,
+          velocity: velocity ? 1 : 0,
           authorId: playerInfo.id,
           mapId: currentMap?.id,
           route: route.map((trigger) => trigger.id).join(','),
