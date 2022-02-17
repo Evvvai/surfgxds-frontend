@@ -7,9 +7,6 @@ import { Fragment, useEffect } from 'react'
 // Layouts
 import MainLayout from 'components/layouts/Main.layout'
 
-/* May be reworekd... */
-import FriendsPath from 'components/layouts/FriendsPath.layout'
-
 // Components
 import Header from '../components/header/Header.component'
 import Footer from 'components/footer/Footer.component'
@@ -69,6 +66,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
           content={'black-translucent'}
         />
         <link rel="manifest" href="/manifest.json" />
+        <meta name="yandex-verification" content="e75a5c1746f36213" />
       </Head>
       <ThemeProvider>
         {/* <NotificationList /> */}
