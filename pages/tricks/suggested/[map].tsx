@@ -100,11 +100,14 @@ SuggestedTricks.getInitialProps = async ({ query, store, res }) => {
       }
     )
 
-    const [myRates, myRatesErrors] = isLoggedIn
-      ? await serverHandle(res, PLAYER_RATE, {
-          ids: tricksSuggested?.map((val: TrickSuggested) => val.id),
-        })
-      : [[], []]
+    if (tricksSuggestedErrors) throw new Error()
+
+    const [myRates, myRatesErrors] =
+      isLoggedIn && tricksSuggested
+        ? await serverHandle(res, PLAYER_RATE, {
+            ids: tricksSuggested?.map((val: TrickSuggested) => val.id),
+          })
+        : [[], []]
 
     if (tricksSuggested) {
       store.dispatch(

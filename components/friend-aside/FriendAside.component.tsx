@@ -126,6 +126,7 @@ const FriendAside: FC = () => {
                 filteredFriendsIds.find((y) => y === x.id)
               ),
             ]
+              .sort((x, y) => Number(y.lastLoginSite) - Number(x.lastLoginSite))
               .sort((x, y) => Number(y.online) - Number(x.online))
               .map((val) => {
                 return (
