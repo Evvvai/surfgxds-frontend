@@ -1,10 +1,16 @@
 import { MutableRefObject, useEffect, useState } from 'react'
 
 export const useResizeContent = (ref: MutableRefObject<any>) => {
-  const [width, setWidth] = useState<number>(ref?.current?.clientWidth)
+  const [size, setSize] = useState<{ width: number; height: number }>({
+    width: ref?.current?.clientWidth,
+    height: ref?.current?.clientHeight,
+  })
 
   const handleResizeWindow = (e: any): void =>
-    setWidth(ref?.current?.clientWidth)
+    setSize({
+      width: ref?.current?.clientWidth,
+      height: ref?.current?.clientHeight,
+    })
 
   useEffect(() => {
     window.addEventListener('resize', handleResizeWindow)
@@ -15,8 +21,11 @@ export const useResizeContent = (ref: MutableRefObject<any>) => {
   }, [])
 
   useEffect(() => {
-    setWidth(ref?.current?.clientWidth)
+    setSize({
+      width: ref?.current?.clientWidth,
+      height: ref?.current?.clientHeight,
+    })
   }, [ref])
 
-  return { width, setWidth }
+  return { width: size.width, height: size.height, setSize }
 }

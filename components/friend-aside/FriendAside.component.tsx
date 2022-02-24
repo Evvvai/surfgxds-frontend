@@ -10,14 +10,12 @@ const {
   hrH,
   search,
   searchInput,
-  searchItem,
   searchIcon,
   list,
   item,
   itemImg,
   itemInfo,
   itemOnline,
-  itemInvite,
   exit,
   Online,
   tip,
@@ -28,8 +26,6 @@ import { MdPersonAdd } from 'react-icons/md'
 import { AiOutlineCloudSync } from 'react-icons/ai'
 import { MdOutlineManageSearch } from 'react-icons/md'
 import { IoIosClose } from 'react-icons/io'
-import { MdLibraryAdd } from 'react-icons/md'
-import { RiMailCloseFill } from 'react-icons/ri'
 
 // Components
 import ToolTip from '../UI/Tooltip/Tooltip.component'
@@ -41,15 +37,15 @@ import { useFriendFiltered } from 'hooks/store/friend'
 
 // Utils
 import cn from 'classnames'
-import { useRouter } from 'next/dist/client/router'
-import Modal from 'components/UI/Modal/Modal.component'
-import { Portal } from 'utils/portal'
 import dayjs from 'dayjs'
+import Modal from 'components/UI/Modal/Modal.component'
+import { useRouter } from 'next/dist/client/router'
+import { Portal } from 'utils/portal'
+import { changeDecode } from 'utils/changeDecode'
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 const FriendAside: FC = () => {
-  const { isFriendOpen, openFriend, closeFriend, friendsList, isFriendLoad } =
-    useFriend()
+  const { isFriendOpen, closeFriend, friendsList, isFriendLoad } = useFriend()
   const { termFriend, filteredFriendsIds } = useFriendFiltered()
 
   const [isFriendSync, setIsFriendSync] = useState<boolean>(false)
@@ -154,7 +150,7 @@ const FriendAside: FC = () => {
                       />
                     </div>
                     <div className={itemInfo}>
-                      <div>{val.nick}</div>
+                      <div>{changeDecode(val.nick)}</div>
                       {val.online ? (
                         <span>{val.status.action}</span>
                       ) : (

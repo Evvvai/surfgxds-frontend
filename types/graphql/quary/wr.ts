@@ -37,3 +37,24 @@ export const TWR = gql`
     }
   }
 `
+export const LOST_NOTIFY = gql`
+  query ($mapId: Int!, $steamid64: String!) {
+    lostNotify(mapId: $mapId, steamid64: $steamid64) {
+      type
+      nowSpeed
+      beforeSpeed
+      nowSpeed
+      nowTime
+      beforeTime
+      nowDate
+      beforeDate
+      trickName
+      player {
+        steamid64
+        nick
+        avatarfull
+        avatarCustom
+      }
+    }
+  }
+`

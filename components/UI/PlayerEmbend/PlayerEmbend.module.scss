@@ -9,7 +9,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
-  color: var(--color-trick-name);
+  color: var(--color-nick-name);
   gap: 5px;
 
   cursor: pointer;
@@ -36,10 +36,10 @@
     }
 
     @include mobile {
-      min-height: 12px;
-      min-width: 12px;
-      max-height: 12px;
-      max-width: 12px;
+      min-height: 14px;
+      min-width: 14px;
+      max-height: 14px;
+      max-width: 14px;
     }
 
     transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1);

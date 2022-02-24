@@ -78,8 +78,6 @@ SuggestedTricks.getInitialProps = async ({ query, store, res }) => {
   const currentMap = store.getState().app.currentMap
 
   try {
-    // const isLoad = store.getState().trickSuggested.isLoad
-    // if (!isLoad) {
     const isLoggedIn = store.getState().player.isLoggedIn
     const limit = Math.abs(+query?.limit || 100)
     const offset = Math.abs(+query?.offset || 0)

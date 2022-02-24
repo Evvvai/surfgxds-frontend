@@ -150,8 +150,6 @@ const Tricks = (props: Props) => {
                 isSuggestOpen={isSuggestOpen}
                 setIsSuggestOpen={setIsSuggestOpen}
               />
-
-              {/* <div>Its complete -+ | Velocity +-</div> */}
             </div>
           )}
           <TricksList tricks={filteredTricks} triggers={triggers} />

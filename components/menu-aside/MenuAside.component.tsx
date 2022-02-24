@@ -37,8 +37,8 @@ const SectionMenuAside: FC = () => {
       <div className={cn(contentInner, { [Open]: isMenuOpen })}>
         <header className={styles.title}>
           <h1>SurfGxds</h1>
-          {/* <hr className={hrH} /> */}
         </header>
+
         <ul onClick={(e) => closeMenu()} className={list}>
           <li>
             <Link href={'/tricks/' + currentMap?.name}>

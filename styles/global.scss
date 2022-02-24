@@ -36,6 +36,7 @@
   --color-input-border: #{$color-input-border};
 
   --color-border: #{$color-border};
+  --color-border-content: darken(#{$color-border}, 5%);
   --color-disabled: #{$color-disabled};
   --color-toast-bg: #{$color-toast-bg};
 
@@ -54,8 +55,6 @@
   --color-error: #ff4e2f;
   --color-success: #00a329;
   --color-warn: #ceff2f;
-
-  --color-cart-add: #00be30;
 
   --color-link: #70a1f0;
   --color-link-hover: #4583e7;
@@ -77,7 +76,7 @@
   // Need create theme
   --color-trick-name: #4e92ff;
   --color-trick-name-none: #ff714e;
-  --color-nick-name: #67a1ff;
+  --color-nick-name: #67bbff;
   --color-percent-completes: #51d46e;
   --color-point: #f59467;
 
@@ -186,6 +185,9 @@ html {
 
   // Friend aside
   --friend-aside-width: 300px;
+
+  // Notifications aside
+  --notifications-aside-width: 300px;
 
   // Section menu aside
   --section-menu-aside-width: 300px;

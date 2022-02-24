@@ -46,8 +46,8 @@ const trickSlice = createSlice({
       state.filters = {
         ...state.filters,
         pointsRange: {
-          min: Math.min(...payload.tricks.map((x) => x.point)),
-          max: Math.max(...payload.tricks.map((x) => x.point)),
+          min: Math.min(...(payload?.tricks.map((x) => x.point) || 0)),
+          max: Math.max(...(payload?.tricks.map((x) => x.point) || 0)),
         },
       }
     },
