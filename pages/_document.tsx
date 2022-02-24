@@ -22,6 +22,7 @@ export default class Document extends SourceDocument {
           <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
           <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-analytics.js"></script>
           <script src="/pwabuilder-sw-register.js"></script>
+        </Head>
 
         <body>
           <Main />
