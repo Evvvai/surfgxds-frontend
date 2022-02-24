@@ -59,7 +59,15 @@ const SuggestedTricks = (props: Props) => {
       <Head>
         <title>{currentMap.alternativeName + ' | Suggested tricks'}</title>
         <meta
+          property="og:title"
+          content={currentMap.alternativeName + ' | Suggested tricks'}
+        />
+        <meta
           name="description"
+          content={`Suggested tricks for the ${currentMap.alternativeName} map`}
+        />
+        <meta
+          name="og:description"
           content={`Suggested tricks for the ${currentMap.alternativeName} map`}
         />
       </Head>

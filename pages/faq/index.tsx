@@ -428,11 +428,19 @@ const Faq = ({ hostStatus, developers }: Props) => {
   return (
     <>
       <Head>
-        <title>SurfGxds faq</title>
+        <title>SurfGxds FAQ</title>
         <meta name="description" property="og:description" content="SurfGxds" />
-        <meta name="og:title" content="SurfGxds" />
-        <meta name="robots" content="INDEX,FOLLOW" />
-        <link rel="canonical" />
+
+        <title>SurfGxds FAQ</title>
+        <meta property="og:title" content="SurfGxds FAQ" />
+        <meta
+          name="description"
+          content={`Information about server trick SurfGxds`}
+        />
+        <meta
+          name="og:description"
+          content={`Information about server trick SurfGxds`}
+        />
       </Head>
       <section className={styles.faq}>
         <h5 className={styles.header}>FAQ</h5>

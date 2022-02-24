@@ -50,7 +50,15 @@ const Leaderboard = (props: Props) => {
       <Head>
         <title>{currentMap.alternativeName + ' | Leaderboard'}</title>
         <meta
+          property="og:title"
+          content={currentMap.alternativeName + ' | Leaderboard'}
+        />
+        <meta
           name="description"
+          content={`Leaderboard table for the ${currentMap.alternativeName} map , by percentage of completion, and avg place by 4 tops (unique points, all points, all tricks, unique tricks)`}
+        />
+        <meta
+          name="og:description"
           content={`Leaderboard table for the ${currentMap.alternativeName} map , by percentage of completion, and avg place by 4 tops (unique points, all points, all tricks, unique tricks)`}
         />
       </Head>

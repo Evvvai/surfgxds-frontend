@@ -72,7 +72,15 @@ const Tricks = (props: Props) => {
       <Head>
         <title>{currentMap.alternativeName + ' | Tricks'}</title>
         <meta
+          property="og:title"
+          content={currentMap.alternativeName + ' | Tricks'}
+        />
+        <meta
           name="description"
+          content={`List of all available tricks for the ${currentMap.alternativeName} map`}
+        />
+        <meta
+          name="og:description"
           content={`List of all available tricks for the ${currentMap.alternativeName} map`}
         />
       </Head>

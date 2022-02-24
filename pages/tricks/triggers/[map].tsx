@@ -79,7 +79,15 @@ const Triggers = (props: Props) => {
       <Head>
         <title>{currentMap.alternativeName + ' | Triggers'}</title>
         <meta
+          property="og:title"
+          content={currentMap.alternativeName + ' | Triggers'}
+        />
+        <meta
           name="description"
+          content={`List of all available triggers for the ${currentMap.alternativeName} map`}
+        />
+        <meta
+          name="og:description"
           content={`List of all available triggers for the ${currentMap.alternativeName} map`}
         />
       </Head>

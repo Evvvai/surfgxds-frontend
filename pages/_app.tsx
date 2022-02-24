@@ -65,6 +65,20 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
           name="apple-mobile-web-app-status-bar-style"
           content={'black-translucent'}
         />
+
+        <title>Trick Surf Gxds</title>
+        <meta
+          name="description"
+          content="Trick Surf site with information about all trick routes and players"
+        />
+        <meta property="og:title" content="Trick Surf Gxds" />
+        <meta
+          property="og:description"
+          content="Trick Surf site with information about all trick routes and players"
+        />
+        <meta property="og:url" content="https://surfgxds.xyz/" />
+        <meta property="og:type" content="website" />
+
         <link rel="manifest" href="/manifest.json" />
         <meta name="yandex-verification" content="e75a5c1746f36213" />
       </Head>
