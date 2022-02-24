@@ -1,12 +1,10 @@
 {
-  "short_name": "surfgxds",
-  "name": "surfgxds",
-  "lang": "en-US",
+  "name": "SurfGxds",
+  "short_name": "SurfGxds",
+  "theme_color": "#218ef3",
+  "background_color": "#424242",
+  "scope": "/",
   "start_url": "/",
-  "display": "standalone",
-  "orientation": "portrait",
-  "theme_color": "#fff",
-  "background_color": "#000",
   "icons": [
     {
       "src": "surfgxds.ico",
