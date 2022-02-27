@@ -9,6 +9,7 @@ import { FaRoute } from 'react-icons/fa'
 import { MdOutlineLeaderboard } from 'react-icons/md'
 import { IoIosConstruct } from 'react-icons/io'
 import { FaQuora } from 'react-icons/fa'
+import { GiLaurelsTrophy } from 'react-icons/gi'
 
 // Components
 import ToolTip from '../UI/Tooltip/Tooltip.component'
@@ -61,6 +62,16 @@ const SectionMenuAside: FC = () => {
               <a className={item}>
                 <IoIosConstruct className={styles.sectionIcon} />
                 <div className={styles.sectionName}>Trick creator</div>
+              </a>
+            </Link>
+          </li>
+          <li>
+            <Link href={'/ranked/'}>
+              <a className={item}>
+                <GiLaurelsTrophy
+                  className={cn(styles.sectionIcon, styles.sectionIconRanked)}
+                />
+                <div className={styles.sectionName}>Ranked</div>
               </a>
             </Link>
           </li>

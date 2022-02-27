@@ -29,6 +29,7 @@ module.exports = {
   env: {
     NOT_INVITES: '/not_invites.gif',
     NOT_TRIGGER: '/not_trigger.gif',
+    RANKED_BACK: '/rankedBack2.png',
     // NOT_INVITES:
     //   'https://firebasestorage.googleapis.com/v0/b/csleague-2ecff.appspot.com/o/etc%2Fnot_invites.gif?alt=media&token=1b1d83e1-f6f4-4a48-85cb-5520663ced0a',
     // NOT_TRIGGER:

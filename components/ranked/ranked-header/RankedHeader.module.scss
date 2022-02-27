@@ -1,0 +1,68 @@
+.ranked {
+  &Header {
+    position: relative;
+    height: 100%;
+    min-height: calc(100vw / 6);
+    max-height: calc(100vw / 6);
+    width: 100vw;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    @include before-desktop {
+      display: none;
+    }
+  }
+
+  &List {
+    position: absolute;
+    top: 0;
+    z-index: 5;
+
+    width: calc(100vw / 2);
+    height: 100%;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+
+  &Back {
+    position: absolute;
+    top: 0;
+    z-index: 4;
+    opacity: 0.4;
+    width: 100%;
+    height: 100%;
+    filter: blur(4px);
+  }
+}
+
+.rank {
+  > :first-child {
+    width: 64px;
+    height: 64px;
+
+    fill: var(--color-text);
+  }
+
+  > :last-child {
+    padding: 5px 0;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: 900;
+
+    color: var(--color-text);
+  }
+
+  &:hover {
+    transform: scale(1.2);
+    transition: transform 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+  }
+  transform: scale(1);
+  transition: transform 0.2s ease-out;
+}
