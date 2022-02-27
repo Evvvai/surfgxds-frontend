@@ -29,9 +29,9 @@ const Ranked = (props: Props) => {
         <meta name="robots" content="INDEX,FOLLOW" />
       </Head>
       <section>
-        {/* <div className={styles.dev}>
+        <div className={styles.dev}>
           <span>IN DEVELOPMENT</span>
-        </div> */}
+        </div>
         <RankedHeader />
         <div className={styles.section}></div>
         <div className={styles.events}>
