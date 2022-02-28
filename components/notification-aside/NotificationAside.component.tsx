@@ -101,7 +101,7 @@ const NotificationAside: FC = () => {
               Records
             </button>
             <span className={cn(styles.sectionsInfo, styles.sectionsInfoRight)}>
-              {tricksLost.length}
+              {tricksLost?.length || 0}
             </span>
           </div>
         </div>
@@ -124,7 +124,7 @@ const NotificationAside: FC = () => {
           )}
 
           {section === 1 ? (
-            tricksLost.length !== 0 ? (
+            tricksLost?.length ? (
               tricksLost.map((val, index) => {
                 return (
                   <Fragment>
