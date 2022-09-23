@@ -3,6 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@emotion/react': ^11.10.4
   '@emotion/styled': ^11.10.4
+  '@firebase/storage': ^0.9.9
   '@mui/material': ^5.10.6
   '@reduxjs/toolkit': ^1.8.5
   '@svgr/webpack': ^6.3.1
@@ -34,6 +35,7 @@ specifiers:
   react-google-recaptcha: ^2.1.0
   react-icons: ^4.4.0
   react-redux: ^8.0.4
+  redux: ^4.2.0
   redux-thunk: ^2.4.1
   sass: ^1.55.0
   sass-loader: ^13.0.2
@@ -44,6 +46,7 @@ specifiers:
 dependencies:
   '@emotion/react': 11.10.4_react@18.2.0
   '@emotion/styled': 11.10.4_gyryel6m34lsxtsejhafetjriq
+  '@firebase/storage': 0.9.9
   '@mui/material': 5.10.6_6xnkn2aqnlmdvuspwqrjexfduy
   '@reduxjs/toolkit': 1.8.5_kuo2ie247izvzll3jejufdtq3q
   '@svgr/webpack': 6.3.1
@@ -62,8 +65,9 @@ dependencies:
   react-dom: 18.2.0_react@18.2.0
   react-google-recaptcha: 2.1.0_react@18.2.0
   react-icons: 4.4.0_react@18.2.0
-  react-redux: 8.0.4_biqbaboplfbrettd7655fr4n2y
-  redux-thunk: 2.4.1
+  react-redux: 8.0.4_e42enmjmqb4imi3q3iaq2rrebm
+  redux: 4.2.0
+  redux-thunk: 2.4.1_redux@4.2.0
   sass: 1.55.0
   socket.io-client: 4.5.2
   styled-components: 5.3.5_biqbaboplfbrettd7655fr4n2y
@@ -2120,6 +2124,19 @@ packages:
       '@firebase/util': 1.6.3
     dev: false
 
+  /@firebase/storage/0.9.9:
+    resolution: {integrity: sha512-Zch7srLT2SIh9y2nCVv/4Kne0HULn7OPkmreY70BJTUJ+g5WLRjggBq6x9fV5ls9V38iqMWfn4prxzX8yIc08A==}
+    peerDependencies:
+      '@firebase/app': 0.x
+    dependencies:
+      '@firebase/component': 0.5.17
+      '@firebase/util': 1.6.3
+      node-fetch: 2.6.7
+      tslib: 2.4.0
+    transitivePeerDependencies:
+      - encoding
+    dev: false
+
   /@firebase/storage/0.9.9_@firebase+app@0.7.33:
     resolution: {integrity: sha512-Zch7srLT2SIh9y2nCVv/4Kne0HULn7OPkmreY70BJTUJ+g5WLRjggBq6x9fV5ls9V38iqMWfn4prxzX8yIc08A==}
     peerDependencies:
@@ -2592,7 +2609,7 @@ packages:
     dependencies:
       immer: 9.0.15
       react: 18.2.0
-      react-redux: 8.0.4_biqbaboplfbrettd7655fr4n2y
+      react-redux: 8.0.4_e42enmjmqb4imi3q3iaq2rrebm
       redux: 4.2.0
       redux-thunk: 2.4.1_redux@4.2.0
       reselect: 4.1.6
@@ -4756,7 +4773,7 @@ packages:
     dependencies:
       next: 12.3.1_2mygebwfgdyopr3fy2qddu2eli
       react: 18.2.0
-      react-redux: 8.0.4_biqbaboplfbrettd7655fr4n2y
+      react-redux: 8.0.4_e42enmjmqb4imi3q3iaq2rrebm
     dev: false
 
   /next-sitemap/3.1.22_next@12.3.1:
@@ -5681,7 +5698,7 @@ packages:
     resolution: {integrity: sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==}
     dev: false
 
-  /react-redux/8.0.4_biqbaboplfbrettd7655fr4n2y:
+  /react-redux/8.0.4_e42enmjmqb4imi3q3iaq2rrebm:
     resolution: {integrity: sha512-yMfQ7mX6bWuicz2fids6cR1YT59VTuT8MKyyE310wJQlINKENCeT1UcPdEiX6znI5tF8zXyJ/VYvDgeGuaaNwQ==}
     peerDependencies:
       '@types/react': ^16.8 || ^17.0 || ^18.0
@@ -5709,6 +5726,7 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       react-is: 18.2.0
+      redux: 4.2.0
       use-sync-external-store: 1.2.0_react@18.2.0
     dev: false
 
@@ -5755,12 +5773,6 @@ packages:
     engines: {node: '>=8.10.0'}
     dependencies:
       picomatch: 2.3.1
-
-  /redux-thunk/2.4.1:
-    resolution: {integrity: sha512-OOYGNY5Jy2TWvTL1KgAlVy6dcx3siPJ1wTq741EPyUKfn6W6nChdICjZwCd0p8AZBs5kWpZlbkXW2nE/zjUa+Q==}
-    peerDependencies:
-      redux: ^4
-    dev: false
 
   /redux-thunk/2.4.1_redux@4.2.0:
     resolution: {integrity: sha512-OOYGNY5Jy2TWvTL1KgAlVy6dcx3siPJ1wTq741EPyUKfn6W6nChdICjZwCd0p8AZBs5kWpZlbkXW2nE/zjUa+Q==}
