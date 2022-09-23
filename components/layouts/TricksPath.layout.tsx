@@ -1,4 +1,4 @@
-import { FC, Fragment, useEffect, useState, PropsWithChildren } from 'react'
+import { FC, Fragment, useEffect, useState } from 'react'
 
 // Styles
 import styles from '../../styles/layouts/Layouts.module.scss'
@@ -17,7 +17,7 @@ import cn from 'classnames'
 // Utils
 
 //////////////////////////////////////////////////////////////////////////////////////
-const TricksPath = ({ children }: PropsWithChildren) => {
+const TricksPath: FC = ({ children }) => {
   const { currentMap } = useApp()
   const router = useRouter()
 
