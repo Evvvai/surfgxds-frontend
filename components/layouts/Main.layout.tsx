@@ -1,4 +1,4 @@
-import { FC, Fragment } from 'react'
+import { FC, Fragment, PropsWithChildren } from 'react'
 
 // Styles
 import styles from '../../styles/layouts/Layouts.module.scss'
@@ -14,7 +14,7 @@ import MenuAside from '../menu-aside/MenuAside.component'
 // Utils
 
 //////////////////////////////////////////////////////////////////////////////////////
-const MainLayout: FC = ({ children }) => {
+const MainLayout = ({ children }: PropsWithChildren) => {
   return (
     <Fragment>
       <MenuAside />

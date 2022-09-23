@@ -4,7 +4,6 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "postbuild": "next-sitemap",
     "sitemap": "next-sitemap",
     "export": "BROWSERSLIST_IGNORE_OLD_DATA=true next export",
     "start": "NODE_ENV=production next start",
