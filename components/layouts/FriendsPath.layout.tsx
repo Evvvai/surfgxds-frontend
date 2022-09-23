@@ -1,4 +1,4 @@
-import { FC, Fragment, useEffect, useState } from 'react'
+import { FC, Fragment, useEffect, useState,PropsWithChildren } from 'react'
 
 // Styles
 import styles from '../../styles/layouts/Layouts.module.scss'
@@ -11,7 +11,7 @@ import { useRouter } from 'next/dist/client/router'
 // Utils
 
 //////////////////////////////////////////////////////////////////////////////////////
-const FriendsPath: FC = ({ children }) => {
+const FriendsPath = ({ children }: PropsWithChildren) => {
   const router = useRouter()
 
   const [section, setSection] = useState<number | undefined>(undefined)
