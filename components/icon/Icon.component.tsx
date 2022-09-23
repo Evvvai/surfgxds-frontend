@@ -18,10 +18,11 @@ export default function Icon(props: IconProps): JSX.Element {
   const { asset, className: argClassName = '' } = props
   const className = cn(icon, argClassName)
 
-  return createElement(
-    dynamic<IconProps>(() => import(`assets/icon/${asset}.svg`), {
-      loading: () => <Loader {...props} />,
-    }),
-    { ...props, className }
-  )
+  return <></>
+  // return createElement(
+  //   dynamic<IconProps>(() => import(`assets/icon/${asset}.svg`), {
+  //     loading: () => <Loader {...props} />,
+  //   }),
+  //   { ...props, className }
+  // )
 }
