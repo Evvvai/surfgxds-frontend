@@ -1,6 +1,5 @@
 import { Pagination, Player } from '@store'
 import { Trigger } from './tricks'
-import { RateType } from '../../components/suggested-tricks/suggested-tricks-item/SuggestedTricksItem.component'
 
 export interface TrickSuggestedState {
   isLoad: boolean
@@ -30,7 +29,6 @@ export interface TrickSuggestedRates {
   id: number
   trickId: number
   playerId: number
-  rate: RateType
   dateAdd: Date
 }
 

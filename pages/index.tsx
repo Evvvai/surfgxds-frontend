@@ -7,9 +7,8 @@ import Head from 'next/head'
 
 // Styles
 import styles from '../styles/home/Home.module.scss'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
-const { home, homeContent } = styles
+const { home } = styles
 
 interface Props {}
 
@@ -35,11 +34,3 @@ const Home = (props: Props) => {
 }
 
 export default Home
-
-// export async function getStaticProps(context: any): Promise<GetStaticPropsResult<Props>> {
-
-//   return {
-//     props: {
-//     },
-//   };
-// }

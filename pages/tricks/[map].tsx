@@ -3,7 +3,6 @@ import Head from 'next/head'
 import type { ReactElement } from 'react'
 
 // Layouts
-import TricksPath from 'components/layouts/TricksPath.layout'
 
 // Styles
 import styles from '../../styles/tricks/Tricks.module.scss'
@@ -14,7 +13,6 @@ import { RiCloseFill } from 'react-icons/ri'
 import { AiOutlineAppstoreAdd } from 'react-icons/ai'
 
 // Components
-import TricksListHeader from '../../components/tricks/tricks-header/TricksListHeader.component'
 import TricksList from '../../components/tricks/TricksList.component'
 import MySlider from '../../components/UI/MySlider/MySlider.component'
 import TricksFiltersTriggersSelector from '../../components/tricks/tricks-filters-triggers-selector/TricksFiltersTriggersSelector.component'
@@ -28,11 +26,8 @@ import { useRouter } from 'next/dist/client/router'
 import { TRICKS_STATS } from 'types/graphql/quary/tricks'
 import { loadedTricks } from 'stores/trick.slice'
 import { serverHandle } from 'utils/graphql'
-import { changedMap } from 'stores/app.slice'
-import { Maps } from '@types'
 import { usePlayer } from '../../hooks/store/player/usePlayer'
 import MyInput from '../../components/UI/MyInput/MyInput.component'
-import { Trick } from '@store'
 import { TRIGGERS } from 'types/graphql/quary'
 import cn from 'classnames'
 import { useTrickFilters } from '../../hooks/store/trick/useTrickFilters'
@@ -183,8 +178,4 @@ Tricks.getInitialProps = async ({ query, store, res }) => {
     })
     store.dispatch(loadedTricks({ tricks, triggers }))
   }
-}
-
-Tricks.getLayout = function getLayout(page: ReactElement) {
-  return <TricksPath>{page}</TricksPath>
 }

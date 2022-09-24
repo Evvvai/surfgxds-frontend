@@ -4,18 +4,13 @@ import { bindActionCreators } from '@reduxjs/toolkit'
 import { useTypesSelector } from '../useTypesSelector'
 import { useCallback } from 'react'
 import { clientHandle } from 'utils/graphql'
-import { Pagination, Player, TrickSuggested } from '@store'
+import { Pagination, TrickSuggested } from '@store'
 import {
   PLAYER_RATE,
   SUGGESTED_TRICK,
 } from 'types/graphql/quary/trick-suggested'
 import { useApp } from '../app'
-import { RateType } from '../../../components/suggested-tricks/suggested-tricks-item/SuggestedTricksItem.component'
-import {
-  ACCEPT_TRICK,
-  DECLINE_TRICK,
-  RATE_TRICK,
-} from 'types/graphql/mutation/'
+import { ACCEPT_TRICK, DECLINE_TRICK } from 'types/graphql/mutation/'
 import { usePlayer } from '../player/usePlayer'
 import { useTrick } from '../trick/useTrick'
 
@@ -27,14 +22,8 @@ export const useTrickSuggested = () => {
   const { loadTricks } = useTrick()
   const dispatch = useDispatch()
 
-  const {
-    declinedTrick,
-    acceptedTrick,
-    changedPagination,
-    loadedTrickSuggested,
-    changedMyRate,
-    resetTrickSuggested,
-  } = bindActionCreators(ActionCreators.actions, dispatch)
+  const { declinedTrick, acceptedTrick, loadedTrickSuggested } =
+    bindActionCreators(ActionCreators.actions, dispatch)
 
   const { myRates, tricksSuggested, pagination } = useTypesSelector(
     (state) => state.trickSuggested
@@ -62,18 +51,6 @@ export const useTrickSuggested = () => {
     [currentMap]
   )
 
-  const changeMyRate = useCallback(
-    async (trick: TrickSuggested, rate: RateType) => {
-      const [trickRate, errors] = await clientHandle(RATE_TRICK, {
-        trickId: trick.id,
-        rate,
-      })
-
-      changedMyRate(trickRate)
-    },
-    []
-  )
-
   const acceptTrick = useCallback(async (trick: TrickSuggested) => {
     const [newTrick, errors] = await clientHandle(ACCEPT_TRICK, {
       trickId: trick.id,
@@ -91,7 +68,6 @@ export const useTrickSuggested = () => {
 
   return {
     myRates,
-    changeMyRate,
     loadedTrickSuggested,
     changePagination,
     pagination,

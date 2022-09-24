@@ -6,7 +6,6 @@ import {
   TrickSuggestedRates,
 } from '@store'
 import { HYDRATE } from 'next-redux-wrapper'
-import { RateType } from '../components/suggested-tricks/suggested-tricks-item/SuggestedTricksItem.component'
 
 const initialState: TrickSuggestedState = {
   isLoad: false,
@@ -71,15 +70,6 @@ const trickSuggestedSlice = createSlice({
       const currentMyTrickRate = state.myRates.find(
         (val) => val.trickId === payload.trickId
       ) as TrickSuggestedRates | undefined
-
-      if (currentMyTrickRate) {
-        currentMyTrickRate.rate = payload.rate
-        ++currentTrick.rates[payload.rate]
-        --currentTrick.rates[payload.rate === 'down' ? 'up' : 'down']
-      } else {
-        myTrickRate.push(payload)
-        ++currentTrick.rates[payload.rate]
-      }
 
       state.myRates = myTrickRate
       state.tricksSuggested = updatedTricks
