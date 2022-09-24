@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { FC, Fragment, useEffect, useState } from 'react'
+import cn from 'classnames'
 
 // Styles
 import stylesModal from '../../../styles/modal/ModalSkelet.module.scss'
@@ -6,6 +7,7 @@ import styles from './MapSelect.module.scss'
 
 // Icons
 import { IoIosClose } from 'react-icons/io'
+import Link from 'next/link'
 
 // Components
 

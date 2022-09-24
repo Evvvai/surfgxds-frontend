@@ -10,6 +10,7 @@ import MainLayout from 'components/layouts/Main.layout'
 // Components
 import Header from '../components/header/Header.component'
 import Footer from 'components/footer/Footer.component'
+import MenuAside from 'components/menu-aside/MenuAside.component'
 
 // Utils
 import { AUTH } from 'types/graphql/mutation'
@@ -92,6 +93,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     </Fragment>
   )
 }
+
 MyApp.getInitialProps = wrapper.getInitialAppProps(
   (store) =>
     async ({ ctx, Component }) => {
