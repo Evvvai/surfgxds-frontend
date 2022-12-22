@@ -31,8 +31,7 @@ export const useTrick = () => {
       const [triggers, triggersErrors] = await clientHandle(TRIGGERS, {
         mapId: map.id,
       })
-      // console.log('mounted', tricks, triggers, map)
-      loadedTricks({ tricks, triggers })
+      if (!!tricks && !!triggers) loadedTricks({ tricks, triggers })
       return { tricks, triggers }
     },
     []
