@@ -104,18 +104,20 @@ MyApp.getInitialProps = wrapper.getInitialAppProps(
 
         const cookies = ctx ? Cookies.get(ctx) : parseCookies()
         const map =
-          maps.find((x: Maps) => x.name === ctx.query?.map)?.id || cookies.map
+          maps?.find((x: Maps) => x.name === ctx.query?.map)?.id ?? cookies.map
 
-        if (player && !playerErrors) {
+        if (!!player && !playerErrors) {
           store.dispatch(setPlayerSetting(player))
         }
 
-        store.dispatch(
-          appLoaded({
-            availableMaps: maps,
-            currentMap: maps.find((val) => val.id === +map) || maps[0],
-          })
-        )
+        if (!!map) {
+          store.dispatch(
+            appLoaded({
+              availableMaps: maps,
+              currentMap: maps.find((val) => val.id === +map) || maps[0],
+            })
+          )
+        }
       }
 
       return {
